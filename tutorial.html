@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Обучение: понимаем экономику</title>
+  <style>
+    html {
+      scrollbar-width: thin;
+      scrollbar-color: #ffd966 #1a3a5c;
+    }
+
+    html::-webkit-scrollbar {
+      width: 12px;
+    }
+
+    html::-webkit-scrollbar-track {
+      background: #1a3a5c;
+      border-radius: 10px;
+    }
+
+    html::-webkit-scrollbar-thumb {
+      background: #ffd966;
+      border-radius: 10px;
+      border: 2px solid #1a3a5c;
+    }
+
+    html::-webkit-scrollbar-thumb:hover {
+      background: #ffaa33;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: auto;
+      overflow: visible;
+    }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(145deg, #0a2a3f, #1a4a6a);
+      color: white;
+      position: relative;
+      padding: 20px;
+      min-height: 100vh;
+    }
+
+    /* Фоновые валюты */
+    .currency-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .currency-symbol {
+      position: absolute;
+      font-size: 50px;
+      color: rgba(255,255,255,0.03);
+      animation: float 20s infinite;
+    }
+
+    @keyframes float {
+      0%,100% { transform: translate(0,0); }
+      50% { transform: translate(30px, -30px); }
+    }
+
+    /* Кнопка настроек */
+    .settings-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.5);
+      border: 2px solid #ffd966;
+      color: #ffd966;
+      font-size: 24px;
+      cursor: pointer;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(5px);
+      transition: 0.2s;
+    }
+
+    .settings-btn:hover {
+      background: #ffd966;
+      color: #0a2a3f;
+      transform: scale(1.1);
+    }
+
+    /* Меню настроек */
+    .settings-menu {
+      position: fixed;
+      top: 80px;
+      right: 20px;
+      background: rgba(10, 35, 55, 0.95);
+      backdrop-filter: blur(10px);
+      border: 2px solid #ffd966;
+      border-radius: 30px;
+      padding: 20px;
+      z-index: 1000;
+      display: none;
+      min-width: 250px;
+    }
+
+    .settings-menu.show {
+      display: block;
+    }
+
+    .settings-menu h3 {
+      color: #ffd966;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    .sound-control {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 15px 0;
+    }
+
+    .sound-control label {
+      font-size: 18px;
+    }
+
+    .sound-toggle {
+      width: 60px;
+      height: 30px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 30px;
+      position: relative;
+      cursor: pointer;
+      border: 2px solid #ffd966;
+    }
+
+    .sound-toggle.on {
+      background: #4caf50;
+    }
+
+    .sound-toggle::after {
+      content: '';
+      position: absolute;
+      width: 26px;
+      height: 26px;
+      background: #ffd966;
+      border-radius: 50%;
+      top: 0;
+      left: 0;
+      transition: 0.2s;
+    }
+
+    .sound-toggle.on::after {
+      left: 30px;
+    }
+
+    .volume-slider {
+      width: 100%;
+      margin: 10px 0;
+    }
+
+    /* Основной контейнер */
+    .tutorial-container {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 1100px;
+      background: rgba(10, 35, 55, 0.85);
+      backdrop-filter: blur(12px);
+      border-radius: 60px;
+      padding: 30px 40px;
+      border: 2px solid #ffd966;
+      box-shadow: 0 30px 60px -20px black;
+      margin: 0 auto;
+    }
+
+    /* Шапка */
+    .tutorial-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .tutorial-header h1 {
+      font-size: 42px;
+      color: #ffd966;
+      margin-bottom: 5px;
+    }
+
+    .step-indicator {
+      display: inline-block;
+      background: #ff6b4a;
+      padding: 8px 30px;
+      border-radius: 40px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    /* Контент шага */
+    .step-content {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .step-title {
+      font-size: 32px;
+      color: #ffd966;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .step-description {
+      font-size: 17px;
+      line-height: 1.5;
+      background: rgba(255,255,255,0.05);
+      padding: 18px 20px;
+      border-radius: 25px;
+    }
+
+    .step-description p {
+      margin-bottom: 10px;
+    }
+
+    .step-description ul {
+      margin-left: 25px;
+      margin-top: 8px;
+    }
+
+    /* Сетка показателей (для теории) */
+    .metrics-mini {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin: 5px 0;
+    }
+
+    /* Сетка показателей (для практики) */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin: 15px 0;
+    }
+
+    .metric-card {
+      background: rgba(255,255,255,0.08);
+      border-radius: 28px;
+      padding: 20px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .metric-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .metric-name {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .help-icon {
+      width: 22px;
+      height: 22px;
+      background: rgba(255,215,0,0.2);
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffd966;
+    }
+
+    .metric-value {
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .real-rate {
+      font-size: 16px;
+      color: #ffd966;
+    }
+
+    /* НОВЫЙ АССИСТЕНТ — PNG справа, текст слева */
+    .assistant-custom {
+      background: #0f2336;
+      border: 2px solid #ffd966;
+      border-radius: 30px;
+      padding: 15px 20px;
+      margin: 5px 0;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .assistant-custom-message {
+      font-size: 17px;
+      line-height: 1.5;
+      flex: 1;
+    }
+
+    .assistant-custom-message strong {
+      color: #ffd966;
+    }
+
+    .assistant-custom-img {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      filter: drop-shadow(0 5px 10px black);
+      order: 2; /* картинка справа */
+    }
+
+    /* Интерактивная зона (для теории) */
+    .interactive-area {
+      background: rgba(0,0,0,0.3);
+      border-radius: 30px;
+      padding: 20px;
+      margin: 5px 0;
+    }
+
+    .slider-container {
+      margin: 10px 0;
+    }
+
+    .slider-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .rate-display {
+      font-size: 28px;
+      font-weight: bold;
+      color: #ff6b4a;
+      text-align: center;
+    }
+
+    input[type=range] {
+      width: 100%;
+      height: 10px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 10px;
+      -webkit-appearance: none;
+    }
+
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 25px;
+      height: 25px;
+      background: #ffd966;
+      border-radius: 50%;
+      border: 2px solid white;
+      cursor: pointer;
+    }
+
+    .effect-preview {
+      background: rgba(255,215,0,0.1);
+      border-left: 6px solid #ffd966;
+      padding: 12px 15px;
+      border-radius: 15px;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+
+    /* Панель управления для практики */
+    .control-panel {
+      background: rgba(0,0,0,0.3);
+      border-radius: 40px;
+      padding: 25px;
+      margin: 15px 0;
+    }
+
+    .forecast {
+      background: rgba(255,215,0,0.1);
+      border-left: 6px solid #ffd966;
+      padding: 15px;
+      border-radius: 20px;
+      margin: 15px 0;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .primary-btn {
+      background: #ff6b4a;
+      border: none;
+      color: white;
+      font-size: 20px;
+      font-weight: bold;
+      padding: 15px 30px;
+      border-radius: 50px;
+      cursor: pointer;
+      flex: 1;
+      transition: 0.2s;
+    }
+
+    .primary-btn:hover {
+      background: #ff8255;
+      transform: scale(1.02);
+    }
+
+    .primary-btn:disabled {
+      opacity: 0.3;
+      pointer-events: none;
+    }
+
+    /* Кнопки навигации */
+    .navigation-buttons {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 15px 0 5px;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .prev-btn {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: white;
+      font-size: 18px;
+      padding: 10px 20px;
+      border-radius: 40px;
+      cursor: pointer;
+      transition: 0.2s;
+      opacity: 0.7;
+      white-space: nowrap;
+      flex: 0 0 auto;
+    }
+
+    .prev-btn:hover {
+      background: rgba(255,255,255,0.2);
+      opacity: 1;
+    }
+
+    .next-btn {
+      background: #4caf50;
+      border: none;
+      color: white;
+      font-size: 20px;
+      font-weight: bold;
+      padding: 10px 30px;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: 0.2s;
+      white-space: nowrap;
+      flex: 0 0 auto;
+      margin-left: auto;
+    }
+
+    .next-btn:hover {
+      background: #5db95d;
+      transform: scale(1.05);
+    }
+
+    .next-btn.disabled {
+      opacity: 0.3;
+      pointer-events: none;
+    }
+
+    /* Модальное окно */
+    .modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 3000;
+    }
+
+    .modal-content {
+      background: #1a3a5c;
+      padding: 50px;
+      border-radius: 60px;
+      max-width: 550px;
+      border: 4px solid #ffd966;
+      text-align: center;
+      position: relative;
+    }
+
+    .modal-emojis {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .modal-emojis span {
+      font-size: 48px;
+    }
+
+    .modal-emojis span:first-child {
+      transform: scaleX(-1);
+    }
+
+    .modal-content h2 {
+      font-size: 42px;
+      color: #ffd966;
+      margin-bottom: 20px;
+    }
+
+    .modal-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 30px;
+    }
+
+    .secondary-btn {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: white;
+      font-size: 18px;
+      padding: 10px 20px;
+      border-radius: 40px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .secondary-btn:hover {
+      background: rgba(255,255,255,0.2);
+    }
+
+    /* Аудио */
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== ВСЕ ЗВУКИ ===== -->
+<audio id="soundCashRegister" preload="auto"><source src="assets/sounds/CashRegister.mp3" type="audio/mp3"></audio>
+<audio id="soundFonMelody" preload="auto" loop><source src="assets/sounds/FonMelody.mp3" type="audio/mp3"></audio>
+<audio id="soundButtonClick" preload="auto"><source src="assets/sounds/ButtonClick.mp3" type="audio/mp3"></audio>
+<audio id="soundTransition" preload="auto"><source src="assets/sounds/Transition.mp3" type="audio/mp3"></audio>
+<audio id="soundSlider" preload="auto"><source src="assets/sounds/Slider.mp3" type="audio/mp3"></audio>
+<audio id="soundVictoryFanfare" preload="auto"><source src="assets/sounds/VictoryFanfare.mp3" type="audio/mp3"></audio>
+
+<!-- Фон -->
+<div class="currency-bg" id="currencyBg"></div>
+
+<!-- Кнопка настроек -->
+<div class="settings-btn" id="settingsBtn" onclick="toggleSettings()">🔊</div>
+
+<!-- Меню настроек -->
+<div class="settings-menu" id="settingsMenu">
+  <h3>⚙️ НАСТРОЙКИ</h3>
+  <div class="sound-control">
+    <label>🔊 Звук</label>
+    <div class="sound-toggle on" id="soundToggle" onclick="toggleSound()"></div>
+  </div>
+  <div class="sound-control">
+    <label>🎵 Музыка</label>
+    <div class="sound-toggle on" id="musicToggle" onclick="toggleMusic()"></div>
+  </div>
+  <div class="sound-control">
+    <label>🔉 Громкость</label>
+    <input type="range" min="0" max="100" value="50" class="volume-slider" id="volumeSlider" oninput="changeVolume(this.value)">
+  </div>
+</div>
+
+<!-- Основной контейнер -->
+<div class="tutorial-container" id="tutorialContainer">
+  <div class="tutorial-header">
+    <h1>📚 ОБУЧЕНИЕ</h1>
+    <div class="step-indicator" id="stepIndicator">Шаг 1/10</div>
+  </div>
+
+  <!-- ===== ЭТАП 1: ТЕОРИЯ (ШАГИ 1-5) ===== -->
+  <!-- Текст полностью твой, только ассистент заменён на PNG справа -->
+
+  <!-- ШАГ 1: Инфляция -->
+  <div class="step-content" id="step1">
+    <div class="step-title"><span>📈</span> Инфляция</div>
+    <div class="step-description">
+      <p><strong>Инфляция</strong> — это рост цен. Когда цены растут, твои деньги теряют ценность.</p>
+      <p>Пример: если инфляция 10%, то через год на 100 рублей ты купишь товаров на 10% меньше. Сбережения в 100 000 рублей превратятся в 90 000 по покупательной способности.</p>
+      <p style="margin-top: 8px;">Цель Банка России — держать инфляцию около <strong>4%</strong>. Это оптимально: деньги не обесцениваются слишком быстро, но экономика растёт.</p>
+    </div>
+    
+    <!-- Новый ассистент с PNG справа -->
+    <div class="assistant-custom">
+      <div class="assistant-custom-message">
+        Инфляция — как невидимый налог. Если она слишком высокая, твои сбережения тают. Если слишком низкая — экономика засыпает.
+      </div>
+      <img src="assets/images/assistant.png" class="assistant-custom-img" alt="Ассистент" onerror="this.style.display='none'">
+    </div>
+    
+    <div class="navigation-buttons">
+      <div></div>
+      <button class="next-btn" onclick="nextStep(1)">Далее →</button>
+    </div>
+  </div>
+
+  <!-- ШАГ 2: Ключевая ставка -->
+  <div class="step-content" id="step2" style="display: none;">
+    <div class="step-title"><span>💰</span> Ключевая ставка</div>
+    <div class="step-description">
+      <p><strong>Ключевая ставка</strong> — это процент, под который Центральный банк даёт кредиты коммерческим банкам. Это "оптовая цена денег".</p>
+      <p>От неё зависят все остальные ставки в экономике: по ипотеке, кредитам, вкладам.</p>
+    </div>
+    <div class="interactive-area">
+      <div class="slider-container">
+        <div class="slider-label">
+          <span>🔑 Измени ставку</span>
+          <span class="rate-display" id="step2_rate">10%</span>
+        </div>
+        <input type="range" id="step2_slider" min="0" max="20" value="10" step="0.5">
+      </div>
+      <div class="metrics-mini" style="grid-template-columns: repeat(2,1fr);">
+        <div class="metric-card"><div class="metric-header"><span>🏦 Ипотека</span></div><div class="metric-value small" id="step2_mortgage">13%</div></div>
+        <div class="metric-card"><div class="metric-header"><span>💳 Кредиты</span></div><div class="metric-value small" id="step2_business">11%</div></div>
+      </div>
+      <div class="effect-preview" id="step2_effect">⚡ Ставка слишком низкая — дорожают товары. Слишком высокая — замирает экономика.</div>
+    </div>
+    
+    <div class="assistant-custom">
+      <div class="assistant-custom-message">
+        Высокая ставка охлаждает инфляцию, но тормозит рост. Низкая — разгоняет экономику, но может вызвать скачок цен.
+      </div>
+      <img src="assets/images/assistant.png" class="assistant-custom-img" alt="Ассистент" onerror="this.style.display='none'">
+    </div>
+    
+    <div class="navigation-buttons">
+      <button class="prev-btn" onclick="prevStep(2)">← Назад</button>
+      <button class="next-btn" onclick="nextStep(2)">Далее →</button>
+    </div>
+  </div>
+
+  <!-- ШАГ 3: Реальная ставка -->
+  <div class="step-content" id="step3" style="display: none;">
+    <div class="step-title"><span>📊</span> Реальная ставка</div>
+    <div class="step-description">
+      <p><strong>Реальная ставка = Ключевая ставка − Инфляция</strong></p>
+      <p>Это самый важный показатель. Он показывает, дорожают или дешевеют деньги на самом деле.</p>
+      <p>Если реальная ставка отрицательная, деньги обесцениваются быстрее, чем ты получаешь проценты.</p>
+    </div>
+    <div class="metrics-mini" style="grid-template-columns: repeat(3,1fr);">
+      <div class="metric-card"><div class="metric-header"><span>📈 Инфляция</span></div><div class="metric-value" id="step3_inflation">12%</div></div>
+      <div class="metric-card"><div class="metric-header"><span>💰 Ставка</span></div><div class="metric-value" id="step3_rate">8%</div></div>
+      <div class="metric-card"><div class="metric-header"><span>📉 Реальная</span></div><div class="metric-value" id="step3_real">-4%</div></div>
+    </div>
+    <div class="interactive-area">
+      <div class="slider-container">
+        <div class="slider-label">
+          <span>🔑 Подними ставку</span>
+          <span class="rate-display" id="step3_rate_display">8%</span>
+        </div>
+        <input type="range" id="step3_slider" min="0" max="25" value="8" step="0.5">
+      </div>
+    </div>
+    
+    <div class="assistant-custom">
+      <div class="assistant-custom-message" id="step3_message">
+        <span style="color: #ffaa00;">⚠️ Сейчас реальная ставка отрицательная. Деньги тают! Подними ставку выше инфляции.</span>
+      </div>
+      <img src="assets/images/assistant.png" class="assistant-custom-img" alt="Ассистент" onerror="this.style.display='none'">
+    </div>
+    
+    <div class="navigation-buttons">
+      <button class="prev-btn" onclick="prevStep(3)">← Назад</button>
+      <button class="next-btn" onclick="nextStep(3)">Далее →</button>
+    </div>
+  </div>
+
+  <!-- ШАГ 4: ВВП -->
+  <div class="step-content" id="step4" style="display: none;">
+    <div class="step-title"><span>🏭</span> ВВП</div>
+    <div class="step-description">
+      <p><strong>ВВП</strong> — это размер экономики: стоимость всех товаров и услуг, произведённых в стране.</p>
+      <p>Когда ВВП растёт, у людей появляется работа, растут зарплаты, можно больше откладывать на жильё.</p>
+      <p>Но если ВВП растёт слишком быстро (больше 5% в год), экономика перегревается. Компании поднимают зарплаты, а затем цены — инфляция ускоряется.</p>
+    </div>
+    <div class="metrics-mini" style="grid-template-columns: repeat(3,1fr);">
+      <div class="metric-card"><div class="metric-header"><span>🏭 ВВП</span></div><div class="metric-value" id="step4_gdp">+3%</div></div>
+      <div class="metric-card"><div class="metric-header"><span>📈 Инфляция</span></div><div class="metric-value" id="step4_inflation">4%</div></div>
+      <div class="metric-card"><div class="metric-header"><span>🏠 Жильё</span></div><div class="metric-value" id="step4_housing">55</div></div>
+    </div>
+    
+    <div class="assistant-custom">
+      <div class="assistant-custom-message">
+        Идеальный мир: рост ВВП 2-4%, инфляция 4%, жильё доступно. К этому будем стремиться в игре!
+      </div>
+      <img src="assets/images/assistant.png" class="assistant-custom-img" alt="Ассистент" onerror="this.style.display='none'">
+    </div>
+    
+    <div class="navigation-buttons">
+      <button class="prev-btn" onclick="prevStep(4)">← Назад</button>
+      <button class="next-btn" onclick="nextStep(4)">Далее →</button>
+    </div>
+  </div>
+
+  <!-- ШАГ 5: Доступность жилья -->
+  <div class="step-content" id="step5" style="display: none;">
+    <div class="step-title"><span>🏠</span> Доступность жилья</div>
+    <div class="step-description">
+      <p><strong>Доступность жилья</strong> (0–100) — это индекс, который показывает, насколько легко семье купить квартиру.</p>
+      <p>На него влияют:</p>
+      <ul>
+        <li><strong>Ипотечная ставка</strong> (зависит от ключевой ставки) — дороже кредит → меньше покупателей</li>
+        <li><strong>Цены на квартиры</strong> (зависят от инфляции) — высокая инфляция → недвижимость дорожает</li>
+        <li><strong>Доходы людей</strong> (зависят от ВВП) — растёт экономика → люди больше зарабатывают</li>
+      </ul>
+      <p style="margin-top: 8px;"><strong>Это главный миф игры:</strong> просто снизить ставку недостаточно. Если инфляция высокая, квартиры дорожают быстрее доходов, и жильё становится ещё менее доступным!</p>
+    </div>
+    <div class="metrics-mini">
+      <div class="metric-card"><div class="metric-header"><span>📈 Инфляция</span></div><div class="metric-value" id="step5_inflation">8%</div></div>
+      <div class="metric-card"><div class="metric-header"><span>💰 Ставка</span></div><div class="metric-value" id="step5_rate">10%</div></div>
+      <div class="metric-card"><div class="metric-header"><span>🏠 Доступность</span></div><div class="metric-value" id="step5_housing">45</div></div>
+      <div class="metric-card"><div class="metric-header"><span>🏭 ВВП</span></div><div class="metric-value" id="step5_gdp">+2.5%</div></div>
+    </div>
+    
+    <div class="assistant-custom">
+      <div class="assistant-custom-message">
+        Вот почему наш миф — неправда. Ставка — не волшебная кнопка. Нужен баланс всех трёх факторов.
+      </div>
+      <img src="assets/images/assistant.png" class="assistant-custom-img" alt="Ассистент" onerror="this.style.display='none'">
+    </div>
+    
+    <div class="navigation-buttons">
+      <button class="prev-btn" onclick="prevStep(5)">← Назад</button>
+      <button class="next-btn" onclick="nextStep(5)">Далее →</button>
+    </div>
+  </div>
+
+  <!-- ===== ЭТАП 2: ПРАКТИКА (ШАГИ 6-10) ===== -->
+  <!-- Здесь ассистент такой же (PNG справа), тексты подробные -->
+
+  <!-- ШАГ 6: Знакомство с интерфейсом -->
+  <div class="step-content" id="step6" style="display: none;">
+    <div class="step-title"><span>🖱️</span> Знакомство с интерфейсом</div>
+    
+    <div class="metrics-grid" id="practiceMetrics6">
+      <div class="metric-card">
+        <div class="metric-header"><span class="metric-name">📈 Инфляция</span></div>
+        <div class="metric-value">12%</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-header"><span class="metric-name">💰 Ключевая ставка</span></div>
+        <div class="metric-value" id="practiceRate6">8%</div>
+        <div class="real-rate">Реальная: -4%</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-header"><span class="metric-name">🏭 ВВП</span></div>
+        <div class="metric-value">+2%</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-header"><span class="metric-name">🏠 Доступность</span></div>
+        <div class="metric-value">45/100</div>
+      </div>
+    </div>
+    
+    <div class="control-panel">
+      <div class="slider-container">
+        <div class="slider-label">
+          <span>🔑 Ключевая ставка</span>
+          <span class="rate-big" id="rateDisplay6">8%</span>
+        </div>
+        <input type="range" id="slider6" min="0" max="20" value="8" step="0.5">
+      </div>
+      <div class="forecast" id="forecast6">
+        🔮 Прогноз: инфляция может стать 11.5%
+      </div>
+      <div class="action-buttons">
+        <button class="primary-btn" id="applyBtn6" onclick="applyPractice(6)">✅ Применить</button>
+      </div>
+    </div>
+    
+    <div class="assistant-custom">
+      <div class="assistant-custom-message" id="assistantMsg6">
+        <strong>Шаг 1 из 5 в практике.</strong> Перед тобой экран игры. Здесь ты видишь инфляцию, ключевую ставку, ВВП и доступность жилья.<br><br>
+        Главный инструмент — <strong>ползунок ставки</strong> внизу. Попробуй подвигать его и посмотри, как меняется прогноз справа.<br><br>
+        Когда будешь готов, нажми <strong>«Применить»</strong> — тогда откроется следующий шаг.
+      </div>
+      <img src="assets/images/assistant.png" class="assistant-custom-img" alt="Ассистент" onerror="this.style.display='none'">
+    </div>
+    
+    <div class="navigation-buttons">
+      <button class="prev-btn" onclick="prevStep(6)">← Назад</button>
+      <button class="next-btn disabled" id="next6" onclick="nextStep(6)">Далее →</button>
+    </div>
+  </div>
+
+  <!-- ШАГ 7: Борьба с отрицательной ставкой -->
+  <div class="step-content" id="step7" style="display: none;">
+    <div class="step-title"><span>📈</span> Реальная ставка</div>
+    
+    <div class="metrics-grid" id="practiceMetrics7">
+      <div class="metric-card">
+        <div class="metric-header"><span class="metric-name">📈 Инфляция</span></div>
+        <div class="metric-value">12%</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-header"><span class="metric-name">💰 Ключевая ставка</span></div>
+        <div class="metric-value" id="practiceRate7">8%</div>
+        <div class="real-rate" id="realRate7">Реальная: -4%</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-header"><span class="metric-name">🏭 ВВП</span></div>
+        <div class="metric-value">+2%</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-header"><span class="metric-name">🏠 Доступность</span></div>
+        <div class="metric-value" id="housing7">45/100</div>
+      </div>
+    </div>
+    
+    <div class="control-panel">
+      <div class="slider-container">
+        <div class="slider-label">
+          <span>🔑 Ключевая ставка</span>
+          <span class="rate-big" id="rateDisplay7">8%</span>
+        </div>
+        <input type="range" id="slider7" min="0" max="20" value="8" step="0.5">
+      </div>
+      <div class="forecast" id="forecast7">
+        🔮 Прогноз: инфляция может стать 11.5%
+      </div>
+      <div class="action-buttons">
+        <button class="primary-btn" id="applyBtn7" onclick="applyPractice(7)">✅ Применить</button>
+      </div>
+    </div>
+    
+    <div class="assistant-custom">
+      <div class="assistant-custom-message" id="assistantMsg7">
+        <strong>Сейчас реальная ставка отрицательная: -4%.</strong> Это плохо — деньги теряют ценность, люди бегут в недвижимость, и цены на квартиры растут быстрее доходов.<br><br>
+        Чтобы исправить ситуацию, нужно поднять ключевую ставку <strong>выше инфляции (минимум до 13%)</strong>. Передвинь ползунок и нажми «Применить». Только после этого станет доступна кнопка «Далее».
+      </div>
+      <img src="assets/images/assistant.png" class="assistant-custom-img" alt="Ассистент" onerror="this.style.display='none'">
+    </div>
+    
+    <div class="navigation-buttons">
+      <button class="prev-btn" onclick="prevStep(7)">← Назад</button>
+      <button class="next-btn disabled" id="next7" onclick="nextStep(7)">Далее →</button>
+    </div>
+  </div>
+
+  <!-- ШАГ 8: Наблюдение за результатом -->
+  <div class="step-content" id="step8" style="display: none;">
+    <div class="step-title"><span>👀</span> Наблюдение</div>
+    
+    <div class="metrics-grid" id="practiceMetrics8">
+      <div class="metric-card">
+        <div class="metric-header"><span class="metric-name">📈 Инфляция</span></div>
+        <div class="metric-value" id="infl8">10%</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-header"><span class="metric-name">💰 Ключевая ставка</span></div>
+        <div class="metric-value" id="rate8">13%</div>
+        <div class="real-rate" id="real8">Реальная: +3%</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-header"><span class="metric-name">🏭 ВВП</span></div>
+        <div class="metric-value">+1.8%</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-header"><span class="metric-name">🏠 Доступность</span></div>
+        <div class="metric-value" id="housing8">47/100</div>
+      </div>
+    </div>
+    
+    <div class="assistant-custom">
+      <div class="assistant-custom-message" id="assistantMsg8">
+        <strong>Отлично!</strong> Теперь реальная ставка положительная (+3%). Посмотри, что изменилось:
+        <ul style="margin-top:5px; margin-left:20px;">
+          <li>Инфляция начала снижаться (было 12%, стало 10%)</li>
+          <li>Доступность жилья немного выросла (было 45, стало 47)</li>
+        </ul>
+        Это первый шаг к победе. Нажми «Далее», чтобы продолжить.
+      </div>
+      <img src="assets/images/assistant.png" class="assistant-custom-img" alt="Ассистент" onerror="this.style.display='none'">
+    </div>
+    
+    <div class="navigation-buttons">
+      <button class="prev-btn" onclick="prevStep(8)">← Назад</button>
+      <button class="next-btn" id="next8" onclick="nextStep(8)">Далее →</button>
+    </div>
+  </div>
+
+  <!-- ШАГ 9: Стабильность -->
+  <div class="step-content" id="step9" style="display: none;">
+    <div class="step-title"><span>⚖️</span> Стабильность</div>
+    
+    <div class="metrics-grid" id="practiceMetrics9">
+      <div class="metric-card">
+        <div class="metric-header"><span class="metric-name">📈 Инфляция</span></div>
+        <div class="metric-value" id="infl9">9%</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-header"><span class="metric-name">💰 Ключевая ставка</span></div>
+        <div class="metric-value" id="rate9">13%</div>
+        <div class="real-rate" id="real9">Реальная: +4%</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-header"><span class="metric-name">🏭 ВВП</span></div>
+        <div class="metric-value">+1.9%</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-header"><span class="metric-name">🏠 Доступность</span></div>
+        <div class="metric-value" id="housing9">48/100</div>
+      </div>
+    </div>
+    
+    <div class="control-panel">
+      <div class="slider-container">
+        <div class="slider-label">
+          <span>🔑 Ключевая ставка</span>
+          <span class="rate-big" id="rateDisplay9">13%</span>
+        </div>
+        <input type="range" id="slider9" min="0" max="20" value="13" step="0.5">
+      </div>
+      <div class="forecast" id="forecast9">
+        🔮 Прогноз: инфляция может стать 8.5%
+      </div>
+      <div class="action-buttons">
+        <button class="primary-btn" id="applyBtn9" onclick="applyPractice(9)">✅ Применить</button>
+      </div>
+    </div>
+    
+    <div class="assistant-custom">
+      <div class="assistant-custom-message" id="assistantMsg9">
+        <strong>Доступность жилья растёт, но медленно.</strong> Чтобы закрепить успех, нужно дать экономике время.<br><br>
+        Оставь ставку <strong>на том же уровне (около 13%)</strong> и нажми «Применить». Не меняй её сильно — резкие движения вредят стабильности.
+      </div>
+      <img src="assets/images/assistant.png" class="assistant-custom-img" alt="Ассистент" onerror="this.style.display='none'">
+    </div>
+    
+    <div class="navigation-buttons">
+      <button class="prev-btn" onclick="prevStep(9)">← Назад</button>
+      <button class="next-btn disabled" id="next9" onclick="nextStep(9)">Далее →</button>
+    </div>
+  </div>
+
+  <!-- ШАГ 10: Главный урок -->
+  <div class="step-content" id="step10" style="display: none;">
+    <div class="step-title"><span>🎓</span> Главный урок</div>
+    
+    <div class="metrics-grid" id="practiceMetrics10">
+      <div class="metric-card">
+        <div class="metric-header"><span class="metric-name">📈 Инфляция</span></div>
+        <div class="metric-value">8%</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-header"><span class="metric-name">💰 Ключевая ставка</span></div>
+        <div class="metric-value">13%</div>
+        <div class="real-rate">Реальная: +5%</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-header"><span class="metric-name">🏭 ВВП</span></div>
+        <div class="metric-value">+2.1%</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-header"><span class="metric-name">🏠 Доступность</span></div>
+        <div class="metric-value">52/100</div>
+      </div>
+    </div>
+    
+    <div class="assistant-custom">
+      <div class="assistant-custom-message">
+        <strong>Ты только что прошёл мини-версию игры!</strong> Вот что важно запомнить:<br><br>
+        • Просто снизить ставку — недостаточно. Главное — контролировать <strong>инфляцию</strong>.<br>
+        • Следи за <strong>реальной ставкой</strong> (ставка минус инфляция). Если она отрицательная — деньги тают.<br>
+        • Доступность жилья зависит от <strong>трёх факторов</strong>: ставка, инфляция, доходы.<br><br>
+        Теперь ты готов к настоящим историческим сценариям!
+      </div>
+      <img src="assets/images/assistant.png" class="assistant-custom-img" alt="Ассистент" onerror="this.style.display='none'">
+    </div>
+    
+    <div class="navigation-buttons">
+      <button class="prev-btn" onclick="prevStep(10)">← Назад</button>
+      <button class="next-btn" onclick="finishTutorial()">Завершить</button>
+    </div>
+  </div>
+</div>
+
+<!-- Модальное окно завершения -->
+<div id="completionModal" class="modal" style="display: none;">
+  <div class="modal-content">
+    <div class="modal-emojis">
+      <span>🎉</span>
+      <span>🎉</span>
+    </div>
+    <h2>ОБУЧЕНИЕ ПРОЙДЕНО!</h2>
+    <p style="margin: 20px 0; font-size: 18px;">Ты разобрался в теории и опробовал управление на практике.</p>
+    <p style="margin-bottom: 20px;">Теперь ты готов выбрать стиль управления и применить знания в реальных исторических сценариях!</p>
+    <div class="modal-buttons">
+      <button class="primary-btn" onclick="goToStyle()">Выбрать стиль →</button>
+      <button class="secondary-btn" onclick="restartTutorial()">↻ Пройти заново</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ===== ЗВУК =====
+  let soundEnabled = true;
+  let musicEnabled = true;
+  let volume = 50;
+  let audioInitialized = false;
+
+  document.body.addEventListener('click', function initAudio() {
+    if (!audioInitialized) {
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      ctx.resume();
+      audioInitialized = true;
+      if (musicEnabled) {
+        const music = document.getElementById('soundFonMelody');
+        if (music) {
+          music.volume = volume / 100 * 0.1;
+          music.play().catch(e => {});
+        }
+      }
+      document.body.removeEventListener('click', initAudio);
+    }
+  }, { once: true });
+
+  function playSound(id) {
+    if (!soundEnabled) return;
+    const sound = document.getElementById(id);
+    if (sound) {
+      sound.currentTime = 0;
+      sound.volume = volume / 100 * 0.7;
+      sound.play().catch(e => {});
+    }
+  }
+
+  function toggleSettings() {
+    document.getElementById('settingsMenu').classList.toggle('show');
+    playSound('soundButtonClick');
+  }
+
+  function toggleSound() {
+    soundEnabled = !soundEnabled;
+    document.getElementById('soundToggle').classList.toggle('on', soundEnabled);
+    document.getElementById('settingsBtn').innerHTML = soundEnabled ? '🔊' : '🔇';
+    playSound('soundButtonClick');
+  }
+
+  function toggleMusic() {
+    musicEnabled = !musicEnabled;
+    document.getElementById('musicToggle').classList.toggle('on', musicEnabled);
+    const music = document.getElementById('soundFonMelody');
+    if (musicEnabled) {
+      music.volume = volume / 100 * 0.1;
+      music.play().catch(e => {});
+    } else {
+      music.pause();
+    }
+    playSound('soundButtonClick');
+  }
+
+  function changeVolume(val) {
+    volume = val;
+    const music = document.getElementById('soundFonMelody');
+    if (musicEnabled && music) {
+      music.volume = volume / 100 * 0.1;
+    }
+  }
+
+  // ===== ПОЛЗУНКИ ИЗ ПЕРВОГО ЭТАПА =====
+  let step2Slider = document.getElementById('step2_slider');
+  if (step2Slider) {
+    step2Slider.addEventListener('input', function(e) {
+      let val = e.target.value;
+      document.getElementById('step2_rate').textContent = val + '%';
+      document.getElementById('step2_mortgage').textContent = (parseFloat(val) + 3).toFixed(1) + '%';
+      document.getElementById('step2_business').textContent = (parseFloat(val) + 1).toFixed(1) + '%';
+      if (val < 5) document.getElementById('step2_effect').innerHTML = '⚠️ Слишком низкая — риск инфляции';
+      else if (val > 15) document.getElementById('step2_effect').innerHTML = '⚠️ Слишком высокая — экономика замедляется';
+      else document.getElementById('step2_effect').innerHTML = '✅ Оптимально';
+    });
+    step2Slider.addEventListener('change', function() { playSound('soundSlider'); });
+  }
+
+  let step3Slider = document.getElementById('step3_slider');
+  if (step3Slider) {
+    step3Slider.addEventListener('input', function(e) {
+      let rate = parseFloat(e.target.value);
+      let inflation = 12;
+      let real = (rate - inflation).toFixed(1);
+      document.getElementById('step3_rate_display').textContent = rate + '%';
+      document.getElementById('step3_rate').textContent = rate + '%';
+      document.getElementById('step3_real').textContent = real + '%';
+      let msg = document.getElementById('step3_message');
+      if (real < -5) {
+        msg.innerHTML = '<span style="color: #ff6b4a;">🔴 КРИТИЧНО! Реальная ставка ' + real + '%. Срочно поднимай ставку, иначе деньги сгорят!</span>';
+      } else if (real < 0) {
+        msg.innerHTML = '<span style="color: #ffaa00;">⚠️ Реальная ставка отрицательная: ' + real + '%. Деньги обесцениваются. Подними ставку выше инфляции.</span>';
+      } else if (real <= 3) {
+        msg.innerHTML = '<span style="color: #4caf50;">✅ ЗОЛОТАЯ СЕРЕДИНА! Реальная ставка ' + real + '%. Отличный баланс — деньги защищены, экономика растёт.</span>';
+      } else if (real <= 7) {
+        msg.innerHTML = '<span style="color: #36a2eb;">📊 Реальная ставка ' + real + '%. Выше среднего — можно немного снизить, чтобы стимулировать рост.</span>';
+      } else {
+        msg.innerHTML = '<span style="color: #ff6b4a;">🔴 СЛИШКОМ ВЫСОКАЯ! Реальная ставка ' + real + '%. Экономика может замедлиться. Лучше снизить ставку.</span>';
+      }
+    });
+    step3Slider.addEventListener('change', function() { playSound('soundSlider'); });
+  }
+
+  // ===== ПОЛЗУНКИ ДЛЯ ПРАКТИКИ =====
+  let step6Slider = document.getElementById('slider6');
+  if (step6Slider) {
+    step6Slider.addEventListener('input', function(e) {
+      let val = e.target.value;
+      document.getElementById('rateDisplay6').textContent = val + '%';
+      document.getElementById('practiceRate6').textContent = val + '%';
+      let forecast = 12 - (val - 8) * 0.3;
+      document.getElementById('forecast6').innerHTML = `🔮 Прогноз: инфляция может стать ${forecast.toFixed(1)}%`;
+    });
+    step6Slider.addEventListener('change', function() { playSound('soundSlider'); });
+  }
+
+  let step7Slider = document.getElementById('slider7');
+  if (step7Slider) {
+    step7Slider.addEventListener('input', function(e) {
+      let val = e.target.value;
+      document.getElementById('rateDisplay7').textContent = val + '%';
+      document.getElementById('practiceRate7').textContent = val + '%';
+      let real = (val - 12).toFixed(1);
+      document.getElementById('realRate7').innerHTML = `Реальная: ${real}%`;
+      let forecast = 12 - (val - 8) * 0.3;
+      document.getElementById('forecast7').innerHTML = `🔮 Прогноз: инфляция может стать ${forecast.toFixed(1)}%`;
+    });
+    step7Slider.addEventListener('change', function() { playSound('soundSlider'); });
+  }
+
+  let step9Slider = document.getElementById('slider9');
+  if (step9Slider) {
+    step9Slider.addEventListener('input', function(e) {
+      let val = e.target.value;
+      document.getElementById('rateDisplay9').textContent = val + '%';
+      let forecast = 9 - (val - 13) * 0.3;
+      document.getElementById('forecast9').innerHTML = `🔮 Прогноз: инфляция может стать ${forecast.toFixed(1)}%`;
+    });
+    step9Slider.addEventListener('change', function() { playSound('soundSlider'); });
+  }
+
+  // ===== ПРАКТИКА =====
+  let practiceStep7Completed = false;
+  let practiceStep9Completed = false;
+
+  function applyPractice(step) {
+    playSound('soundCashRegister');
+    
+    if (step === 6) {
+      document.getElementById('next6').classList.remove('disabled');
+      document.getElementById('assistantMsg6').innerHTML = '✅ Отлично! Ты понял, как работает ползунок. Теперь можешь идти дальше.';
+    }
+    
+    if (step === 7) {
+      let slider = document.getElementById('slider7');
+      let rate = parseFloat(slider.value);
+      
+      if (rate >= 13) {
+        document.getElementById('next7').classList.remove('disabled');
+        document.getElementById('assistantMsg7').innerHTML = '✅ Молодец! Теперь реальная ставка положительная. Нажми «Далее», чтобы увидеть результат.';
+        practiceStep7Completed = true;
+        
+        document.getElementById('infl8').textContent = '10%';
+        document.getElementById('rate8').textContent = rate + '%';
+        let real = (rate - 10).toFixed(1);
+        document.getElementById('real8').innerHTML = `Реальная: +${real}%`;
+        document.getElementById('housing8').textContent = '47/100';
+      } else {
+        document.getElementById('assistantMsg7').innerHTML = '❌ Ставка слишком низкая. Подними её до 13% или выше, чтобы реальная ставка стала положительной.';
+      }
+    }
+    
+    if (step === 9) {
+      let slider = document.getElementById('slider9');
+      let rate = parseFloat(slider.value);
+      
+      if (rate >= 12 && rate <= 14) {
+        document.getElementById('next9').classList.remove('disabled');
+        document.getElementById('assistantMsg9').innerHTML = '✅ Отлично! Ты сохранил стабильность. Доступность жилья продолжает расти. Нажми «Далее».';
+        practiceStep9Completed = true;
+        
+        document.getElementById('infl10').textContent = '8%';
+        document.getElementById('rate10').textContent = rate + '%';
+        let real = (rate - 8).toFixed(1);
+        document.getElementById('real10').innerHTML = `Реальная: +${real}%`;
+        document.getElementById('housing10').textContent = '52/100';
+        document.getElementById('gdp10').textContent = '+2.1%';
+      } else {
+        document.getElementById('assistantMsg9').innerHTML = '❌ Лучше оставить ставку на прежнем уровне (около 13%), чтобы не раскачивать экономику.';
+      }
+    }
+  }
+
+  // ===== НАВИГАЦИЯ =====
+  let totalSteps = 10;
+
+  function nextStep(step) {
+    playSound('soundTransition');
+    document.getElementById(`step${step}`).style.display = 'none';
+    document.getElementById(`step${step + 1}`).style.display = 'flex';
+    document.getElementById('stepIndicator').textContent = `Шаг ${step + 1}/${totalSteps}`;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function prevStep(step) {
+    playSound('soundTransition');
+    document.getElementById(`step${step}`).style.display = 'none';
+    document.getElementById(`step${step - 1}`).style.display = 'flex';
+    document.getElementById('stepIndicator').textContent = `Шаг ${step - 1}/${totalSteps}`;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function finishTutorial() {
+    playSound('soundVictoryFanfare');
+    document.getElementById('completionModal').style.display = 'flex';
+  }
+
+  function goToStyle() {
+    window.location.href = 'style.html';
+  }
+
+  function restartTutorial() {
+    document.getElementById('completionModal').style.display = 'none';
+    for (let i = 1; i <= totalSteps; i++) {
+      let el = document.getElementById(`step${i}`);
+      if (el) el.style.display = 'none';
+    }
+    document.getElementById('step1').style.display = 'flex';
+    document.getElementById('stepIndicator').textContent = `Шаг 1/${totalSteps}`;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // ===== ФОН =====
+  function createBg() {
+    let bg = document.getElementById('currencyBg');
+    let symbols = ['₽', '$', '€'];
+    for (let i = 0; i < 20; i++) {
+      let el = document.createElement('div');
+      el.className = 'currency-symbol';
+      el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+      el.style.left = Math.random() * 100 + '%';
+      el.style.top = Math.random() * 100 + '%';
+      el.style.fontSize = (30 + Math.random() * 50) + 'px';
+      bg.appendChild(el);
+    }
+  }
+
+  window.onload = function() {
+    createBg();
+  };
+</script>
+
+</body>
+</html>

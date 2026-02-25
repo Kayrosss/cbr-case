@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Ключевая ставка: проверяем мифы</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+      background: linear-gradient(145deg, #0a1e32 0%, #1a3a5c 100%);
+      color: white;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Фоновые символы */
+    .currency-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .currency-symbol {
+      position: absolute;
+      font-size: 40px;
+      font-weight: bold;
+      color: rgba(255, 255, 255, 0.03);
+      animation: float 20s infinite ease-in-out;
+      user-select: none;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      33% { transform: translate(30px, -30px) rotate(5deg); }
+      66% { transform: translate(-20px, 20px) rotate(-5deg); }
+    }
+
+    /* Основной контейнер */
+    .main-container {
+      position: relative;
+      z-index: 10;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Шапка */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 60px;
+      background: rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(5px);
+      padding: 15px 25px;
+      border-radius: 60px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .cbr-logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: #ffd966;
+    }
+
+    .project-badge {
+      background: #ff6b4a;
+      padding: 8px 20px;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    /* Основной блок */
+    .myth-block {
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(12px);
+      border-radius: 48px;
+      padding: 60px 50px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.6);
+      flex: 1;
+    }
+
+    .intro-label {
+      font-size: 20px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      opacity: 0.7;
+      margin-bottom: 15px;
+    }
+
+    .myth-quote {
+      font-size: 52px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 30px;
+      color: #fff;
+    }
+
+    .myth-quote span {
+      color: #ffd966;
+      font-style: italic;
+    }
+
+    .myth-description {
+      font-size: 20px;
+      line-height: 1.6;
+      margin-bottom: 40px;
+      max-width: 800px;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .myth-description p {
+      margin-bottom: 20px;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+      margin: 50px 0;
+    }
+
+    .feature-item {
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 24px;
+      padding: 25px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .feature-icon {
+      font-size: 36px;
+      margin-bottom: 15px;
+    }
+
+    .feature-title {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #ffd966;
+    }
+
+    .feature-text {
+      font-size: 18px;
+      opacity: 0.9;
+    }
+
+    .action-section {
+      text-align: center;
+      margin: 50px 0 30px;
+    }
+
+    .start-button {
+      background: #ff6b4a;
+      border: none;
+      color: white;
+      font-size: 32px;
+      font-weight: 700;
+      padding: 25px 70px;
+      border-radius: 70px;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 20px 40px -10px #ff6b4a;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .start-button:hover {
+      transform: scale(1.05);
+      background: #ff8255;
+      box-shadow: 0 25px 50px -5px #ff6b4a;
+    }
+
+    .start-note {
+      margin-top: 20px;
+      font-size: 18px;
+      opacity: 0.8;
+    }
+
+    .resources {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin: 50px 0 20px;
+      flex-wrap: wrap;
+    }
+
+    .resource-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 10px 20px;
+      border-radius: 40px;
+      color: white;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: 0.3s;
+      font-size: 16px;
+    }
+
+    .resource-link:hover {
+      background: rgba(255, 215, 0, 0.15);
+      border-color: #ffd966;
+    }
+
+    /* Ассистент */
+    .assistant {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      display: flex;
+      flex-direction: row-reverse;
+      align-items: flex-end;
+      gap: 15px;
+      z-index: 1000;
+      max-width: 500px;
+    }
+
+    .assistant-img {
+      width: 140px;
+      height: auto;
+      filter: drop-shadow(0 10px 15px rgba(0,0,0,0.4));
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .assistant-img:hover {
+      transform: scale(1.02);
+    }
+
+    .assistant-bubble {
+      background: rgba(15, 35, 55, 0.98);
+      backdrop-filter: blur(10px);
+      padding: 18px 22px;
+      border-radius: 24px;
+      border-bottom-right-radius: 8px;
+      max-width: 300px;
+      font-size: 17px;
+      line-height: 1.5;
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      box-shadow: 0 15px 30px -10px black;
+      position: relative;
+    }
+
+    .assistant-bubble::after {
+      content: '';
+      position: absolute;
+      bottom: 15px;
+      right: -12px;
+      width: 0;
+      height: 0;
+      border: 12px solid transparent;
+      border-left-color: rgba(15, 35, 55, 0.98);
+      border-right: 0;
+      transform: rotate(15deg);
+    }
+
+    /* Футер */
+    .footer {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 15px;
+      opacity: 0.6;
+      padding: 20px 0;
+    }
+
+    @media (max-width: 800px) {
+      .myth-quote { font-size: 38px; }
+      .features { grid-template-columns: 1fr; }
+      .start-button { font-size: 24px; padding: 20px 40px; }
+      .assistant { bottom: 10px; right: 10px; }
+      .assistant-bubble { max-width: 220px; font-size: 15px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="currency-bg" id="currencyBg"></div>
+
+<div class="main-container">
+  <!-- Верхняя панель -->
+  <div class="top-bar">
+    <div class="cbr-logo">🏦 БАНК РОССИИ</div>
+    <div class="project-badge">КЕЙС-ЧЕМПИОНАТ • СИБИРЬ</div>
+  </div>
+
+  <!-- Основной блок -->
+  <div class="myth-block">
+    <div class="intro-label">ВОТ ЧТО ИНОГДА МОЖНО УСЛЫШАТЬ...</div>
+    
+    <div class="myth-quote">
+      «<span>Достаточно снизить ключевую ставку</span>, <br>чтобы бизнес развивался, а жильё стало доступным для всех»
+    </div>
+
+    <div class="myth-description">
+      <p>Среди людей бытует мнение, что Центробанк может просто сделать деньги дешёвыми — и сразу наступит процветание. Звучит логично, но так ли это на самом деле?</p>
+      <p>Мы подготовили <strong>5 исторических сценариев</strong> из СССР и современной России. В каждом вы сможете <strong>на 5 лет стать Председателем Центробанка</strong>, управлять ключевой ставкой и своими глазами увидеть, к чему приводят разные решения.</p>
+      <p>Никакой скучной теории — только живой эксперимент с экономикой.</p>
+    </div>
+
+    <!-- Три фишки -->
+    <div class="features">
+      <div class="feature-item">
+        <div class="feature-icon">📅</div>
+        <div class="feature-title">5 лет управления</div>
+        <div class="feature-text">Каждое решение влияет на следующие годы. Думайте на перспективу.</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">📚</div>
+        <div class="feature-title">Реальные периоды</div>
+        <div class="feature-text">СССР, 90-е, 2000-е, 2014, 2022 — проживите экономику заново.</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🎯</div>
+        <div class="feature-title">Понятные термины</div>
+        <div class="feature-text">Нажмите на «?» рядом с любым показателем — ассистент объяснит простыми словами.</div>
+      </div>
+    </div>
+
+    <!-- Кнопка -->
+    <div class="action-section">
+      <button class="start-button" onclick="startGame()">
+        👉 ПРОВЕРИТЬ МИФ В ДЕЛЕ
+      </button>
+      <div class="start-note">
+        Интерактивный симулятор • 5 сценариев • 5–10 минут
+      </div>
+    </div>
+
+    <!-- Ссылки на ресурсы ЦБ -->
+    <div class="resources">
+      <a href="https://cbr.ru/dkp/" target="_blank" class="resource-link">
+        📘 ДКП Банка России
+      </a>
+      <a href="https://fincult.info" target="_blank" class="resource-link">
+        🎓 fincult.info
+      </a>
+      <a href="https://t.me/cbr" target="_blank" class="resource-link">
+        📱 Telegram ЦБ
+      </a>
+    </div>
+  </div>
+
+  <!-- Футер -->
+  <div class="footer">
+    Региональный этап кейс-чемпионата по ДКП • Сибирский федеральный округ • 2026
+  </div>
+</div>
+
+<!-- Ассистент -->
+<div class="assistant">
+  <img src="assets/assistant.png" class="assistant-img" alt="Ассистент" onerror="this.style.display='none'">
+  <div class="assistant-bubble" id="assistantMessage">
+    👋 Привет! Я буду помогать с терминами. Жми на «?» в игре — объясню простыми словами.
+  </div>
+</div>
+
+<script>
+  function startGame() {
+    window.location.href = 'tutorial.html';
+  }
+
+  // Фоновые валюты
+  function createBg() {
+    const bg = document.getElementById('currencyBg');
+    const symbols = ['₽', '$', '€', '£', '¥', '₿', '₴'];
+    for (let i = 0; i < 40; i++) {
+      const el = document.createElement('div');
+      el.className = 'currency-symbol';
+      el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+      el.style.left = Math.random() * 100 + '%';
+      el.style.top = Math.random() * 100 + '%';
+      el.style.fontSize = (30 + Math.random() * 60) + 'px';
+      el.style.animationDelay = Math.random() * 10 + 's';
+      el.style.animationDuration = (15 + Math.random() * 20) + 's';
+      bg.appendChild(el);
+    }
+  }
+
+  window.onload = createBg;
+</script>
+
+</body>
+</html>
