@@ -2,908 +2,12 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="assets/images/favicon-m.png">
   <title>Ключевая ставка: проверяем мифы</title>
-  <style>
-    /* ===== СТИЛИ СКРОЛЛА ДЛЯ КАЖДОЙ ТЕМЫ ===== */
-    html.theme-dark {
-      scrollbar-width: thin;
-      scrollbar-color: #ffd966 #1a3a5c;
-    }
-
-    html.theme-dark::-webkit-scrollbar {
-      width: 12px;
-    }
-
-    html.theme-dark::-webkit-scrollbar-track {
-      background: #1a3a5c;
-      border-radius: 10px;
-    }
-
-    html.theme-dark::-webkit-scrollbar-thumb {
-      background: #ffd966;
-      border-radius: 10px;
-      border: 2px solid #1a3a5c;
-    }
-
-    html.theme-dark::-webkit-scrollbar-thumb:hover {
-      background: #ffaa33;
-    }
-
-    html.theme-light {
-      scrollbar-width: thin;
-      scrollbar-color: #0a1e32 #e1eaf1;
-    }
-
-    html.theme-light::-webkit-scrollbar-track {
-      background: #e1eaf1;
-    }
-
-    html.theme-light::-webkit-scrollbar-thumb {
-      background: #0a1e32;
-      border: 2px solid #e1eaf1;
-    }
-
-    html.theme-business {
-      scrollbar-width: thin;
-      scrollbar-color: #d4b483 #1d3b2c;
-    }
-
-    html.theme-business::-webkit-scrollbar-track {
-      background: #1d3b2c;
-    }
-
-    html.theme-business::-webkit-scrollbar-thumb {
-      background: #d4b483;
-      border: 2px solid #1d3b2c;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Segoe UI', Roboto, Arial, sans-serif;
-      min-height: 100vh;
-      position: relative;
-      overflow-x: hidden;
-      transition: background 0.3s, color 0.3s;
-    }
-
-    /* ===== ТЁМНАЯ ТЕМА (по умолчанию) ===== */
-    body.theme-dark {
-      background: linear-gradient(145deg, #0a1e32, #1a3a5c);
-      color: white;
-    }
-
-    body.theme-dark .myth-block {
-      background: rgba(0, 0, 0, 0.4);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 215, 0, 0.3);
-    }
-
-    body.theme-dark .feature-item {
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    body.theme-dark .resource-link {
-      background: rgba(255, 255, 255, 0.05);
-      color: white;
-      border-color: rgba(255, 255, 255, 0.1);
-    }
-
-    /* Меню настроек в тёмной теме */
-    body.theme-dark .settings-menu {
-      background: rgba(10, 35, 55, 0.98);
-      border-color: #ffd966;
-    }
-
-    body.theme-dark .settings-menu label,
-    body.theme-dark .settings-menu h3,
-    body.theme-dark .settings-menu .setting-item span {
-      color: white;
-    }
-
-    /* Модальное окно пропуска в тёмной теме */
-    body.theme-dark .modal-content {
-      background: #1a3a5c;
-      border-color: #ffd966;
-    }
-
-    body.theme-dark .modal-content h3,
-    body.theme-dark .modal-content p,
-    body.theme-dark .modal-content label {
-      color: white;
-    }
-
-    /* ===== СВЕТЛАЯ ТЕМА ===== */
-    body.theme-light {
-      background: linear-gradient(145deg, #f0f5fa, #e1eaf1);
-      color: #0a1e32;
-    }
-
-    body.theme-light .myth-block {
-      background: rgba(255, 255, 255, 0.85);
-      border: 2px solid #0a1e32;
-    }
-
-    body.theme-light .feature-item {
-      background: rgba(10, 30, 50, 0.05);
-      border: 1px solid #0a1e32;
-      color: #0a1e32;
-    }
-
-    body.theme-light .feature-title {
-      color: #0a1e32;
-    }
-
-    body.theme-light .intro-label,
-    body.theme-light .myth-quote span {
-      color: #0a1e32;
-    }
-
-    body.theme-light .resource-link {
-      background: rgba(10, 30, 50, 0.05);
-      color: #0a1e32;
-      border-color: #0a1e32;
-    }
-
-    body.theme-light .footer {
-      color: #0a1e32;
-      opacity: 0.7;
-    }
-
-    body.theme-light .top-bar {
-      background: rgba(255, 255, 255, 0.3);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(10, 30, 50, 0.2);
-    }
-
-    /* Меню настроек в светлой теме */
-    body.theme-light .settings-menu {
-      background: rgba(240, 245, 250, 0.98);
-      border-color: #0a1e32;
-    }
-
-    body.theme-light .settings-menu label,
-    body.theme-light .settings-menu h3,
-    body.theme-light .settings-menu .setting-item span {
-      color: #0a1e32 !important;
-    }
-
-    /* Модальное окно пропуска в светлой теме */
-    body.theme-light .modal-content {
-      background: #f0f5fa;
-      border-color: #0a1e32;
-    }
-
-    body.theme-light .modal-content h3,
-    body.theme-light .modal-content p,
-    body.theme-light .modal-content label {
-      color: #0a1e32;
-    }
-
-    body.theme-light .question {
-      background: rgba(10, 30, 50, 0.05);
-    }
-
-    /* Валюты в светлой теме */
-    body.theme-light .currency-symbol {
-      color: rgba(10, 30, 50, 0.1);
-    }
-
-    /* ===== ДЕЛОВАЯ ТЕМА (зелёная) ===== */
-    body.theme-business {
-      background: linear-gradient(145deg, #1d3b2c, #2a5a3a);
-      color: #f0ead2;
-    }
-
-    body.theme-business .myth-block {
-      background: rgba(45, 65, 50, 0.85);
-      border: 2px solid #d4b483;
-    }
-
-    body.theme-business .feature-item {
-      background: rgba(180, 180, 130, 0.1);
-      border: 1px solid #d4b483;
-      color: #f0ead2;
-    }
-
-    body.theme-business .feature-title {
-      color: #d4b483;
-    }
-
-    body.theme-business .intro-label,
-    body.theme-business .myth-quote span {
-      color: #d4b483;
-    }
-
-    body.theme-business .resource-link {
-      background: rgba(180, 180, 130, 0.1);
-      color: #f0ead2;
-      border-color: #d4b483;
-    }
-
-    body.theme-business .footer {
-      color: #f0ead2;
-      opacity: 0.7;
-    }
-
-    body.theme-business .top-bar {
-      background: rgba(45, 65, 50, 0.3);
-      backdrop-filter: blur(10px);
-      border: 1px solid #d4b483;
-    }
-
-    /* Меню настроек в деловой теме */
-    body.theme-business .settings-menu {
-      background: rgba(45, 65, 50, 0.98);
-      border-color: #d4b483;
-    }
-
-    body.theme-business .settings-menu label,
-    body.theme-business .settings-menu h3,
-    body.theme-business .settings-menu .setting-item span {
-      color: #f0ead2;
-    }
-
-    /* Модальное окно пропуска в деловой теме */
-    body.theme-business .modal-content {
-      background: #1d3b2c;
-      border-color: #d4b483;
-    }
-
-    body.theme-business .modal-content h3,
-    body.theme-business .modal-content p,
-    body.theme-business .modal-content label {
-      color: #f0ead2;
-    }
-
-    body.theme-business .question {
-      background: rgba(180, 180, 130, 0.1);
-    }
-
-    /* Валюты в деловой теме */
-    body.theme-business .currency-symbol {
-      color: rgba(210, 180, 140, 0.15);
-    }
-
-    /* Ассистент для разных тем */
-    body.theme-light .assistant-bubble {
-      background: rgba(240, 245, 250, 0.98);
-      border: 1px solid #0a1e32;
-      color: #0a1e32;
-    }
-
-    body.theme-light .assistant-bubble::after {
-      border-left-color: rgba(240, 245, 250, 0.98);
-    }
-
-    body.theme-light .close-bubble {
-      color: #0a1e32;
-    }
-
-    body.theme-business .assistant-bubble {
-      background: rgba(45, 65, 50, 0.98);
-      border: 1px solid #d4b483;
-      color: #f0ead2;
-    }
-
-    body.theme-business .assistant-bubble::after {
-      border-left-color: rgba(45, 65, 50, 0.98);
-    }
-
-    body.theme-business .close-bubble {
-      color: #d4b483;
-    }
-
-    /* Фоновые валюты */
-    .currency-bg {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .currency-symbol {
-      position: absolute;
-      font-size: 40px;
-      font-weight: bold;
-      color: rgba(255, 255, 255, 0.03);
-      animation: float 20s infinite ease-in-out;
-      user-select: none;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translate(0, 0) rotate(0deg); }
-      33% { transform: translate(30px, -30px) rotate(5deg); }
-      66% { transform: translate(-20px, 20px) rotate(-5deg); }
-    }
-
-    @keyframes gentlePulse {
-      0% { opacity: 0.9; transform: scale(1); }
-      50% { opacity: 1; transform: scale(1.02); }
-      100% { opacity: 0.9; transform: scale(1); }
-    }
-
-    /* ===== ВЕРТИКАЛЬНАЯ ПАНЕЛЬ УПРАВЛЕНИЯ ===== */
-    .floating-panel {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      z-index: 10000;
-      background: rgba(0, 0, 0, 0.2);
-      backdrop-filter: blur(8px);
-      padding: 10px 6px;
-      border-radius: 40px;
-      border: 1px solid rgba(255, 215, 0, 0.3);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    }
-
-    .panel-settings {
-      background: none;
-      border: 2px solid #ffd966;
-      color: #ffd966;
-      font-size: 20px;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: 0.2s;
-      padding: 0;
-    }
-
-    .panel-settings:hover {
-      background: #ffd96633;
-      transform: scale(1.1);
-    }
-
-    .panel-divider {
-      width: 24px;
-      height: 1px;
-      background: rgba(255, 215, 0, 0.3);
-      margin: 2px 0;
-    }
-
-    .panel-themes {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .panel-themes .theme-option {
-      background: none;
-      border: none;
-      font-size: 18px;
-      cursor: pointer;
-      padding: 4px;
-      border-radius: 50%;
-      transition: 0.2s;
-      opacity: 0.6;
-      width: 32px;
-      height: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .panel-themes .theme-option:hover {
-      opacity: 1;
-      transform: scale(1.1);
-    }
-
-    .panel-themes .theme-option.active {
-      opacity: 1;
-      background: rgba(255, 215, 0, 0.15);
-      box-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
-    }
-
-    /* Адаптация под темы */
-    body.theme-light .floating-panel {
-      background: rgba(255, 255, 255, 0.25);
-    }
-
-    body.theme-business .floating-panel {
-      background: rgba(45, 65, 50, 0.25);
-    }
-
-    /* Меню настроек */
-    .settings-menu {
-      position: fixed;
-      background: rgba(10, 35, 55, 0.98);
-      backdrop-filter: blur(10px);
-      border: 2px solid #ffd966;
-      border-radius: 30px;
-      padding: 25px;
-      z-index: 10000;
-      min-width: 280px;
-      display: none;
-      box-shadow: 0 20px 40px -10px black;
-    }
-
-    .settings-menu.show {
-      display: block;
-    }
-
-    .settings-menu h3 {
-      color: #ffd966;
-      margin-bottom: 20px;
-      text-align: center;
-      font-size: 22px;
-    }
-
-    .setting-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-      font-size: 18px;
-    }
-
-    .toggle {
-      position: relative;
-      display: inline-block;
-      width: 60px;
-      height: 30px;
-    }
-
-    .toggle input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
-
-    .slider {
-      position: absolute;
-      cursor: pointer;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: rgba(255,255,255,0.2);
-      border-radius: 30px;
-      border: 2px solid #ffd966;
-    }
-
-    .slider:before {
-      position: absolute;
-      content: "";
-      height: 22px;
-      width: 22px;
-      left: 2px;
-      bottom: 2px;
-      background-color: #ffd966;
-      border-radius: 50%;
-      transition: 0.2s;
-    }
-
-    input:checked + .slider {
-      background-color: #4caf50;
-    }
-
-    input:checked + .slider:before {
-      transform: translateX(30px);
-    }
-
-    /* Основной контейнер */
-    .main-container {
-      position: relative;
-      z-index: 10;
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 40px 20px;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* Шапка */
-    .top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 60px;
-      background: rgba(0, 0, 0, 0.2);
-      backdrop-filter: blur(5px);
-      padding: 15px 25px;
-      border-radius: 60px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .cbr-logo {
-      font-size: 24px;
-      font-weight: 700;
-      color: #ffd966;
-    }
-
-    .project-badge {
-      background: #ff6b4a;
-      padding: 8px 20px;
-      border-radius: 40px;
-      font-weight: 600;
-      font-size: 16px;
-    }
-
-    /* Основной блок */
-    .myth-block {
-      backdrop-filter: blur(12px);
-      border-radius: 48px;
-      padding: 60px 50px;
-      box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.6);
-      flex: 1;
-    }
-
-    .intro-label {
-      font-size: 20px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      opacity: 0.7;
-      margin-bottom: 15px;
-    }
-
-    .myth-quote {
-      font-size: 42px;
-      font-weight: 700;
-      line-height: 1.2;
-      margin-bottom: 30px;
-    }
-
-    .myth-quote span {
-      font-style: italic;
-    }
-
-    .myth-description {
-      font-size: 20px;
-      line-height: 1.6;
-      margin-bottom: 40px;
-      max-width: 800px;
-      text-align: center;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .myth-description p {
-      margin-bottom: 20px;
-    }
-
-    .features {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 25px;
-      margin: 50px 0;
-    }
-
-    .feature-item {
-      border-radius: 24px;
-      padding: 25px;
-      transition: 0.3s;
-    }
-
-    .feature-item:hover {
-      transform: translateY(-8px);
-    }
-
-    .feature-icon {
-      font-size: 36px;
-      margin-bottom: 15px;
-    }
-
-    .feature-title {
-      font-size: 22px;
-      font-weight: 700;
-      margin-bottom: 10px;
-    }
-
-    .feature-text {
-      font-size: 18px;
-      opacity: 0.9;
-    }
-
-    .action-section {
-      text-align: center;
-      margin: 50px 0 30px;
-    }
-
-    .button-group {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .start-button {
-      background: #b85c4a;
-      border: none;
-      color: white;
-      font-size: 32px;
-      font-weight: 700;
-      padding: 25px 70px;
-      border-radius: 70px;
-      cursor: pointer;
-      transition: 0.3s;
-      box-shadow: 0 20px 40px -10px rgba(184, 92, 74, 0.5);
-      border: 2px solid rgba(255, 215, 0, 0.3);
-    }
-
-    .start-button:hover {
-      transform: scale(1.05);
-      background: #a04a3a;
-      box-shadow: 0 25px 50px -5px rgba(184, 92, 74, 0.6);
-    }
-
-    .skip-button {
-      background: rgba(255, 255, 255, 0.1);
-      border: 2px solid #ffd966;
-      color: #ffd966;
-      font-size: 20px;
-      padding: 12px 40px;
-      border-radius: 50px;
-      cursor: pointer;
-      transition: 0.3s;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .skip-button:hover {
-      background: rgba(255, 215, 0, 0.2);
-      transform: scale(1.02);
-    }
-
-    .skip-note {
-      font-size: 12px;
-      opacity: 0.7;
-      font-weight: normal;
-    }
-
-    .start-note {
-      margin-top: 20px;
-      font-size: 18px;
-      opacity: 0.8;
-    }
-
-    .resources {
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      margin: 50px 0 20px;
-      flex-wrap: wrap;
-    }
-
-    .resource-link {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 20px;
-      border-radius: 40px;
-      text-decoration: none;
-      border: 1px solid;
-      transition: 0.3s;
-      font-size: 16px;
-    }
-
-    .resource-link:hover {
-      transform: scale(1.05);
-    }
-
-    /* Ассистент */
-    .assistant {
-      position: fixed;
-      bottom: 25px;
-      right: 25px;
-      display: flex;
-      flex-direction: row-reverse;
-      align-items: flex-end;
-      gap: 15px;
-      z-index: 1000;
-      max-width: 500px;
-      animation: gentlePulse 2s infinite;
-    }
-
-    .assistant-img {
-      width: 140px;
-      height: auto;
-      filter: drop-shadow(0 10px 15px rgba(0,0,0,0.4));
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    .assistant-img:hover {
-      transform: scale(1.02);
-    }
-
-    .assistant-bubble {
-      position: relative;
-      background: rgba(15, 35, 55, 0.98);
-      backdrop-filter: blur(10px);
-      padding: 18px 22px;
-      border-radius: 24px;
-      border-bottom-right-radius: 8px;
-      max-width: 300px;
-      font-size: 17px;
-      line-height: 1.5;
-      border: 1px solid rgba(255, 215, 0, 0.3);
-      box-shadow: 0 15px 30px -10px black;
-    }
-
-    .assistant-bubble::after {
-      content: '';
-      position: absolute;
-      bottom: 15px;
-      right: -12px;
-      width: 0;
-      height: 0;
-      border: 12px solid transparent;
-      border-left-color: rgba(15, 35, 55, 0.98);
-      border-right: 0;
-      transform: rotate(15deg);
-    }
-
-    .assistant-bubble.hidden {
-      display: none;
-    }
-
-    .close-bubble {
-      position: absolute;
-      top: 8px;
-      right: 10px;
-      color: #ffd966;
-      font-size: 18px;
-      cursor: pointer;
-      opacity: 0.6;
-      transition: 0.2s;
-      z-index: 10;
-    }
-
-    .close-bubble:hover {
-      opacity: 1;
-    }
-
-    /* Модальное окно */
-    .modal {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.8);
-      backdrop-filter: blur(8px);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 20000;
-    }
-
-    .modal-content {
-      border: 3px solid;
-      border-radius: 40px;
-      padding: 30px;
-      max-width: 500px;
-      width: 90%;
-    }
-
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-
-    .modal-header h3 {
-      font-size: 28px;
-    }
-
-    .close-modal {
-      font-size: 28px;
-      cursor: pointer;
-      opacity: 0.7;
-      transition: 0.2s;
-    }
-
-    .close-modal:hover {
-      opacity: 1;
-    }
-
-    .modal-body p {
-      margin-bottom: 20px;
-      font-size: 18px;
-    }
-
-    .question {
-      margin: 20px 0;
-      padding: 15px;
-      background: rgba(255,255,255,0.05);
-      border-radius: 20px;
-    }
-
-    .question p {
-      margin-bottom: 10px;
-      font-weight: bold;
-    }
-
-    .question label {
-      display: block;
-      margin: 8px 0;
-      cursor: pointer;
-    }
-
-    .question input[type="radio"] {
-      margin-right: 10px;
-      accent-color: #ffd966;
-    }
-
-    .modal-footer {
-      margin-top: 20px;
-    }
-
-    .modal-btn {
-      background: #ff6b4a;
-      border: none;
-      color: white;
-      font-size: 20px;
-      padding: 12px 30px;
-      border-radius: 40px;
-      cursor: pointer;
-      width: 100%;
-      transition: 0.2s;
-    }
-
-    .modal-btn:hover {
-      background: #ff8255;
-      transform: scale(1.02);
-    }
-
-    .result-message {
-      text-align: center;
-      margin-top: 15px;
-      font-size: 18px;
-      color: #ffd966;
-    }
-
-    .footer {
-      margin-top: 40px;
-      text-align: center;
-      font-size: 15px;
-      opacity: 0.6;
-      padding: 20px 0;
-    }
-
-    @media (max-width: 800px) {
-      .myth-quote { font-size: 38px; }
-      .features { grid-template-columns: 1fr; }
-      .start-button { font-size: 24px; padding: 20px 40px; }
-      .assistant { bottom: 10px; right: 10px; }
-      .assistant-bubble { max-width: 220px; font-size: 15px; }
-      .floating-panel {
-        top: 10px;
-        right: 10px;
-        padding: 8px 5px;
-      }
-      .panel-settings {
-        width: 32px;
-        height: 32px;
-        font-size: 18px;
-      }
-      .panel-themes .theme-option {
-        font-size: 16px;
-        width: 28px;
-        height: 28px;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="css/index.css">
 </head>
-<body class="theme-dark">
+<body class="theme-business">
 
 <!-- Аудио -->
 <audio id="bgMusic" loop preload="auto">
@@ -925,7 +29,7 @@
 <!-- Фон -->
 <div class="currency-bg" id="currencyBg"></div>
 
-<!-- ВЕРТИКАЛЬНАЯ ПАНЕЛЬ УПРАВЛЕНИЯ -->
+<!-- ПАНЕЛЬ УПРАВЛЕНИЯ -->
 <div class="floating-panel">
   <button class="panel-settings" onclick="toggleSettings()">⚙️</button>
   <div class="panel-divider"></div>
@@ -959,87 +63,95 @@
   </div>
 </div>
 
-<div class="main-container">
-  <!-- Шапка (чистая) -->
-  <div class="top-bar">
+<main class="main-container">
+  <!-- Шапка -->
+  <header class="top-bar">
     <div class="cbr-logo">⚔️ БОЙ С МИФОМ : СТАВКА НА БАЛАНС</div>
     <div class="project-badge">КЕЙС-ЧЕМПИОНАТ • СИБИРЬ</div>
-  </div>
+  </header>
 
   <!-- Основной блок -->
-  <div class="myth-block">
-    <div class="intro-label">ВОТ ЧТО ИНОГДА МОЖНО УСЛЫШАТЬ...</div>
-    
-    <div class="myth-quote">
-      «<span>Достаточно снизить ключевую ставку</span>, <br>чтобы бизнес развивался, а жильё стало доступным для всех»
-    </div>
-
-    <div class="myth-description">
-      <p>Среди людей бытует мнение, что Центробанк может просто сделать деньги дешёвыми — и сразу наступит процветание. Звучит логично, но так ли это на самом деле?</p>
-      <p>Мы подготовили <strong>7 исторических сценариев</strong> из современной России. В каждом вы сможете <strong>примерить на себя роль Председателя Центробанка</strong>, управлять ключевой ставкой на протяжении 16 заседаний (2 года) и своими глазами увидеть, к чему приводят разные решения.</p>
-      <p>Никакой скучной теории — только живой эксперимент с экономикой.</p>
-    </div>
-
-    <!-- Три фишки -->
-    <div class="features">
-      <div class="feature-item">
-        <div class="feature-icon">📅</div>
-        <div class="feature-title">16 заседаний (2 года)</div>
-        <div class="feature-text">Каждое решение влияет на будущие кварталы. Управляйте ставкой 8 раз в год.</div>
+<div class="myth-block">
+  <div class="content-row">
+    <div class="text-column">
+      <div class="intro-label">ВОТ ЧТО ИНОГДА МОЖНО УСЛЫШАТЬ...</div>
+      
+      <div class="myth-quote">
+        «<span>Достаточно снизить ключевую ставку</span>, <br>чтобы бизнес развивался, а жильё стало доступным для всех»
       </div>
-      <div class="feature-item">
-        <div class="feature-icon">📚</div>
-        <div class="feature-title">7 реальных периодов</div>
-        <div class="feature-text">1992, 1998, 2000, 2008, 2014, 2022, 2024 — проживите историю России заново.</div>
-      </div>
-      <div class="feature-item">
-        <div class="feature-icon">🎯</div>
-        <div class="feature-title">Понятные термины</div>
-        <div class="feature-text">Нажмите на «!» рядом с любым показателем — ассистент объяснит простыми словами.</div>
+
+      <div class="myth-description">
+        <p>Среди людей бытует мнение, что Центробанк может просто сделать деньги дешёвыми — и сразу наступит процветание. Звучит логично, но так ли это на самом деле?</p>
+        <p>Мы подготовили <strong>7 исторических сценариев</strong> из современной России. В каждом вы сможете <strong>примерить на себя роль Председателя Центробанка</strong>, управлять ключевой ставкой на протяжении 16 заседаний (2 года) и своими глазами увидеть, к чему приводят разные решения.</p>
+        <p>Никакой скучной теории — только живой эксперимент с экономикой.</p>
       </div>
     </div>
 
-    <!-- Кнопки -->
-    <div class="action-section">
-      <div class="button-group">
-        <button class="start-button" onclick="playSound('soundBell', 'bell'); startGame()">
-          👉 ПРОЙТИ ОБУЧЕНИЕ
-        </button>
-        
-        <button class="skip-button" onclick="playSound('soundButton', 'button'); openSkipModal()">
-          ⚡ Пропустить обучение
-          <span class="skip-note">для опытных пользователей</span>
-        </button>
-        
-        <div class="start-note">
-          Интерактивный симулятор • 7 сценариев • 15–20 минут
+    <div class="features-column">
+      <div class="features">
+        <div class="feature-item">
+          <div class="feature-header">
+            <span class="feature-icon">📅</span>
+            <span class="feature-title">16 заседаний (2 года)</span>
+          </div>
+          <div class="feature-text">Каждое решение влияет на будущие кварталы. Управляйте ставкой 8 раз в год.</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-header">
+            <span class="feature-icon">📚</span>
+            <span class="feature-title">7 реальных периодов</span>
+          </div>
+          <div class="feature-text">1992, 1998, 2000, 2008, 2014, 2022, 2024 — проживите историю России заново.</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-header">
+            <span class="feature-icon">🎯</span>
+            <span class="feature-title">Понятные термины</span>
+          </div>
+          <div class="feature-text">Нажмите на «!» рядом с любым показателем — ассистент объяснит простыми словами.</div>
         </div>
       </div>
     </div>
-
-    <!-- Ссылки на ресурсы ЦБ -->
-    <div class="resources">
-      <a href="https://cbr.ru/dkp/" target="_blank" class="resource-link" onclick="playSound('soundButton', 'button')">
-        📘 ДКП Банка России
-      </a>
-      <a href="https://fincult.info" target="_blank" class="resource-link" onclick="playSound('soundButton', 'button')">
-        🎓 fincult.info
-      </a>
-      <a href="https://t.me/cbr" target="_blank" class="resource-link" onclick="playSound('soundButton', 'button')">
-        📱 Telegram ЦБ
-      </a>
-    </div>
   </div>
 
-  <!-- Футер -->
-  <div class="footer">
-    Региональный этап кейс-чемпионата по ДКП • Сибирский федеральный округ • 2026
+  <!-- Кнопки и ресурсы -->
+<div class="action-section">
+  <div class="button-group">
+    <button class="start-button" onclick="playSound('soundBell', 'bell'); startGame()">
+      👉 ПРОЙТИ ОБУЧЕНИЕ
+    </button>
+    
+    <button class="skip-button" onclick="playSound('soundButton', 'button'); openSkipModal()">
+      ⚡ Пропустить обучение
+      <span class="skip-note">для опытных пользователей</span>
+    </button>
+  </div>
+  
+  <div class="start-note">
+    Интерактивный симулятор • 7 сценариев • 15–20 минут
   </div>
 </div>
 
+  <div class="resources">
+    <a href="https://cbr.ru/dkp/" target="_blank" class="resource-link" onclick="playSound('soundButton', 'button')">
+      📘 ДКП Банка России
+    </a>
+    <a href="https://fincult.info" target="_blank" class="resource-link" onclick="playSound('soundButton', 'button')">
+      🎓 fincult.info
+    </a>
+  </div>
+</div>
+  </section>
+
+  <!-- Футер -->
+  <footer class="footer">
+    Региональный этап кейс-чемпионата по ДКП • Сибирский федеральный округ • 2026
+  </footer>
+</main>
+
 <!-- Ассистент -->
 <div class="assistant">
-  <img src="assets/images/assistant.png" class="assistant-img" alt="Ассистент" onclick="toggleAssistantBubble()" onerror="this.style.display='none'">
+  <img src="assets/images/assistant.png" class="assistant-img" id="assistantImg" alt="Ассистент" onclick="toggleAssistantBubble()" onerror="this.style.display='none'">
   <div class="assistant-bubble" id="assistantBubble">
     <span class="close-bubble" onclick="closeAssistantBubble(event)">✕</span>
     <div id="assistantMessage">
@@ -1083,222 +195,13 @@
       <button class="modal-btn" onclick="checkSkipAnswers()">Проверить</button>
       <div id="skipResult" class="result-message"></div>
     </div>
+    
+    <div style="text-align: center; margin-top: 10px;">
+      <button class="skip-anyway-btn" onclick="forceSkip()">все равно пропустить</button>
+    </div>
   </div>
 </div>
 
-<script>
-  // ===== УРОВНИ ГРОМКОСТИ =====
-  const soundLevels = {
-    bgMusic: 0.15,
-    button: 0.4,
-    bell: 0.5,
-    ovation: 0.6,
-    noise: 0.6,
-    default: 0.5
-  };
-
-  let soundEnabled = true;
-  let musicEnabled = true;
-  let volume = 50;
-  let audioInitialized = false;
-
-  // Разблокировка аудио
-  document.body.addEventListener('click', function initAudio() {
-    if (!audioInitialized) {
-      const ctx = new (window.AudioContext || window.webkitAudioContext)();
-      ctx.resume();
-      audioInitialized = true;
-      if (musicEnabled) {
-        const music = document.getElementById('bgMusic');
-        music.volume = volume / 100 * soundLevels.bgMusic;
-        music.play().catch(e => {});
-      }
-      document.body.removeEventListener('click', initAudio);
-    }
-  }, { once: true });
-
-  function playSound(soundId, type = 'default') {
-    if (!soundEnabled) return;
-    const sound = document.getElementById(soundId);
-    if (sound) {
-      sound.currentTime = 0;
-      const level = soundLevels[type] || soundLevels.default;
-      sound.volume = volume / 100 * level;
-      sound.play().catch(e => {});
-    }
-  }
-
-  // ===== МЕНЮ НАСТРОЕК =====
-  function toggleSettings() {
-    const menu = document.getElementById('settingsMenu');
-    const btn = document.querySelector('.panel-settings');
-    
-    if (menu.classList.contains('show')) {
-      menu.classList.remove('show');
-      return;
-    }
-    
-    const btnRect = btn.getBoundingClientRect();
-    
-    menu.style.top = (btnRect.bottom + 5) + 'px';
-    menu.style.left = (btnRect.right - 280) + 'px';
-    
-    menu.classList.add('show');
-    playSound('soundButton', 'button');
-  }
-
-  // Закрытие меню при клике вне
-  document.addEventListener('click', function(e) {
-    const menu = document.getElementById('settingsMenu');
-    const btn = document.querySelector('.panel-settings');
-    if (!btn.contains(e.target) && !menu.contains(e.target) && menu.classList.contains('show')) {
-      menu.classList.remove('show');
-    }
-  });
-
-  // ===== ЗАКРЫВАТЬ МЕНЮ ПРИ СКРОЛЛЕ =====
-  window.addEventListener('scroll', function() {
-    const menu = document.getElementById('settingsMenu');
-    if (menu.classList.contains('show')) {
-      menu.classList.remove('show');
-    }
-  });
-
-  // ===== УПРАВЛЕНИЕ ЗВУКОМ =====
-  function toggleMusic() {
-    musicEnabled = document.getElementById('musicToggle').checked;
-    const music = document.getElementById('bgMusic');
-    if (musicEnabled) {
-      music.volume = volume / 100 * soundLevels.bgMusic;
-      music.play().catch(e => {});
-    } else {
-      music.pause();
-    }
-    playSound('soundButton', 'button');
-  }
-
-  function toggleSound() {
-    soundEnabled = document.getElementById('soundToggle').checked;
-    playSound('soundButton', 'button');
-  }
-
-  function changeVolume(val) {
-    volume = val;
-    const music = document.getElementById('bgMusic');
-    if (musicEnabled) {
-      music.volume = volume / 100 * soundLevels.bgMusic;
-    }
-  }
-
-  // ===== ТЕМЫ =====
-  function setTheme(theme) {
-    // Применяем тему к body
-    document.body.classList.remove('theme-dark', 'theme-light', 'theme-business');
-    document.body.classList.add(`theme-${theme}`);
-    
-    // Применяем тему к html (для скролла)
-    document.documentElement.classList.remove('theme-dark', 'theme-light', 'theme-business');
-    document.documentElement.classList.add(`theme-${theme}`);
-    
-    localStorage.setItem('theme', theme);
-    playSound('soundButton', 'button');
-    
-    document.querySelectorAll('.theme-option').forEach(btn => {
-      btn.classList.remove('active');
-      if (btn.dataset.theme === theme) {
-        btn.classList.add('active');
-      }
-    });
-  }
-
-  // ===== НАВИГАЦИЯ =====
-  function startGame() {
-    playSound('soundBell', 'bell');
-    window.location.href = 'tutorial.html';
-  }
-
-  // ===== АССИСТЕНТ =====
-  function closeAssistantBubble(event) {
-    event.stopPropagation();
-    document.querySelector('.assistant-bubble').classList.add('hidden');
-  }
-
-  function toggleAssistantBubble() {
-    const bubble = document.querySelector('.assistant-bubble');
-    bubble.classList.toggle('hidden');
-  }
-
-  // ===== МОДАЛЬНОЕ ОКНО =====
-  function resetSkipModal() {
-    document.querySelectorAll('input[name="q1"], input[name="q2"], input[name="q3"]').forEach(radio => {
-      radio.checked = false;
-    });
-    document.getElementById('skipResult').innerHTML = '';
-  }
-
-  function openSkipModal() {
-    resetSkipModal();
-    document.getElementById('skipModal').style.display = 'flex';
-    playSound('soundButton', 'button');
-  }
-
-  function closeSkipModal() {
-    document.getElementById('skipModal').style.display = 'none';
-    resetSkipModal();
-  }
-
-  function checkSkipAnswers() {
-    const q1 = document.querySelector('input[name="q1"]:checked');
-    const q2 = document.querySelector('input[name="q2"]:checked');
-    const q3 = document.querySelector('input[name="q3"]:checked');
-    
-    if (!q1 || !q2 || !q3) {
-      document.getElementById('skipResult').innerHTML = '❓ Ответьте на все вопросы';
-      playSound('soundButton', 'button');
-      return;
-    }
-    
-    const correct = (
-      q1.value === 'up' && 
-      q2.value === 'minus' && 
-      q3.value === 'all'
-    );
-    
-    if (correct) {
-      document.getElementById('skipResult').innerHTML = '✅ Верно! Переходим к игре...';
-      playSound('soundBell', 'bell');
-      setTimeout(() => {
-        window.location.href = 'style.html';
-      }, 1000);
-    } else {
-      document.getElementById('skipResult').innerHTML = '❌ Не все ответы верны. Рекомендуем пройти обучение.';
-      playSound('soundButton', 'button');
-    }
-  }
-
-  // ===== ФОН =====
-  function createBg() {
-    const bg = document.getElementById('currencyBg');
-    const symbols = ['₽', '$', '€', '£', '¥', '₿', '₴'];
-    for (let i = 0; i < 40; i++) {
-      const el = document.createElement('div');
-      el.className = 'currency-symbol';
-      el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-      el.style.left = Math.random() * 100 + '%';
-      el.style.top = Math.random() * 100 + '%';
-      el.style.fontSize = (30 + Math.random() * 60) + 'px';
-      el.style.animationDelay = Math.random() * 10 + 's';
-      el.style.animationDuration = (15 + Math.random() * 20) + 's';
-      bg.appendChild(el);
-    }
-  }
-
-  // ===== ЗАГРУЗКА =====
-  window.onload = function() {
-    createBg();
-    const savedTheme = localStorage.getItem('theme') || 'dark';
-    setTheme(savedTheme);
-  };
-</script>
+<script src="js/index.js"></script>
 </body>
 </html>
