@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" class="theme-dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" href="assets/images/favicon-m.png">
-  <title>Ключевая ставка: проверяем мифы</title>
-  <link rel="stylesheet" href="css/index.css">
+  <title>Ключевая ставка: симулятор</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="css/scenario.css">
 </head>
 <body class="theme-business">
 
@@ -16,14 +17,26 @@
 <audio id="soundButton" preload="auto">
   <source src="assets/sounds/ButtonClick.mp3" type="audio/mp3">
 </audio>
+<audio id="soundSlider" preload="auto">
+  <source src="assets/sounds/Slider.mp3" type="audio/mp3">
+</audio>
+<audio id="soundCash" preload="auto">
+  <source src="assets/sounds/CashRegister.mp3" type="audio/mp3">
+</audio>
 <audio id="soundBell" preload="auto">
   <source src="assets/sounds/TradingBell.mp3" type="audio/mp3">
+</audio>
+<audio id="soundNoise" preload="auto">
+  <source src="assets/sounds/NoiseBurse.mp3" type="audio/mp3">
 </audio>
 <audio id="soundOvation" preload="auto">
   <source src="assets/sounds/Ovation.mp3" type="audio/mp3">
 </audio>
-<audio id="soundNoise" preload="auto">
-  <source src="assets/sounds/NoiseBurse.mp3" type="audio/mp3">
+<audio id="soundNews" preload="auto">
+  <source src="assets/sounds/News_flash.mp3" type="audio/mp3">
+</audio>
+<audio id="soundVictoryFanfare" preload="auto">
+  <source src="assets/sounds/VictoryFanfare.mp3" type="audio/mp3">
 </audio>
 
 <!-- Фон -->
@@ -44,110 +57,182 @@
 <div class="settings-menu" id="settingsMenu">
   <h3>⚙️ НАСТРОЙКИ</h3>
   <div class="setting-item">
-    <span>🎵 Музыка</span>
-    <label class="toggle">
-      <input type="checkbox" id="musicToggle" checked onchange="toggleMusic()">
-      <span class="slider"></span>
-    </label>
-  </div>
-  <div class="setting-item">
     <span>🔊 Звуки</span>
     <label class="toggle">
       <input type="checkbox" id="soundToggle" checked onchange="toggleSound()">
-      <span class="slider"></span>
+      <span class="slider-toggle"></span>
+    </label>
+  </div>
+  <div class="setting-item">
+    <span>🎵 Музыка</span>
+    <label class="toggle">
+      <input type="checkbox" id="musicToggle" checked onchange="toggleMusic()">
+      <span class="slider-toggle"></span>
+    </label>
+  </div>
+  <div class="setting-item">
+    <span>🗣️ Голос</span>
+    <label class="toggle">
+      <input type="checkbox" id="voiceToggle" checked onchange="toggleVoice()">
+      <span class="slider-toggle"></span>
     </label>
   </div>
   <div class="setting-item">
     <span>🔉 Громкость</span>
-    <input type="range" min="0" max="100" value="50" oninput="changeVolume(this.value)">
+    <input type="range" min="0" max="100" value="50" class="volume-slider" id="volumeSlider" oninput="changeVolume(this.value)">
   </div>
 </div>
 
-<main class="main-container">
+<!-- Баннер мифа -->
+<div class="myth-banner">
+  <div class="myth-banner-left">
+    <span>⚡</span>
+    <div>
+      <h2>МИФ: «Достаточно снизить ключевую ставку, чтобы жильё стало доступным»</h2>
+      <p>📉 Реальность: Высокая инфляция съедает доходы, квартиры дорожают быстрее</p>
+    </div>
+  </div>
+  <div class="myth-banner-right" id="mythCounter">
+    Проверяем миф
+  </div>
+</div>
+
+<div class="game-container">
   <!-- Шапка -->
-  <header class="top-bar">
-    <div class="cbr-logo">⚔️ БОЙ С МИФОМ : СТАВКА НА БАЛАНС</div>
-    <div class="project-badge">КЕЙС-ЧЕМПИОНАТ • СИБИРЬ</div>
-  </header>
-
-  <!-- Основной блок -->
-<div class="myth-block">
-  <div class="content-row">
-    <div class="text-column">
-      <div class="intro-label">ВОТ ЧТО ИНОГДА МОЖНО УСЛЫШАТЬ...</div>
-      
-      <div class="myth-quote">
-        «<span>Достаточно снизить ключевую ставку</span>, <br>чтобы бизнес развивался, а жильё стало доступным для всех»
-      </div>
-
-      <div class="myth-description">
-        <p>Среди людей бытует мнение, что Центробанк может просто сделать деньги дешёвыми — и сразу наступит процветание. Звучит логично, но так ли это на самом деле?</p>
-        <p>Мы подготовили <strong>7 исторических сценариев</strong> из современной России. В каждом вы сможете <strong>примерить на себя роль Председателя Центробанка</strong>, управлять ключевой ставкой на протяжении 16 заседаний (2 года) и своими глазами увидеть, к чему приводят разные решения.</p>
-        <p>Никакой скучной теории — только живой эксперимент с экономикой.</p>
-      </div>
-    </div>
-
-    <div class="features-column">
-      <div class="features">
-        <div class="feature-item">
-          <div class="feature-header">
-            <span class="feature-icon">📅</span>
-            <span class="feature-title">16 заседаний (2 года)</span>
-          </div>
-          <div class="feature-text">Каждое решение влияет на будущие кварталы. Управляйте ставкой 8 раз в год.</div>
-        </div>
-        <div class="feature-item">
-          <div class="feature-header">
-            <span class="feature-icon">📚</span>
-            <span class="feature-title">7 реальных периодов</span>
-          </div>
-          <div class="feature-text">1992, 1998, 2000, 2008, 2014, 2022, 2024 — проживите историю России заново.</div>
-        </div>
-        <div class="feature-item">
-          <div class="feature-header">
-            <span class="feature-icon">🎯</span>
-            <span class="feature-title">Понятные термины</span>
-          </div>
-          <div class="feature-text">Нажмите на «!» рядом с любым показателем — ассистент объяснит простыми словами.</div>
-        </div>
-      </div>
+  <div class="header">
+    <button class="scenario-menu-btn" onclick="openScenarioMenu()">
+      <span>📜</span> Выбрать сценарий
+    </button>
+    <div class="header-buttons">
+      <button class="help-btn" onclick="showHelp()">?</button>
     </div>
   </div>
 
-  <!-- Кнопки и ресурсы -->
-<div class="action-section">
-  <div class="button-group">
-    <button class="start-button" onclick="playSound('soundBell', 'bell'); startGame()">
-      👉 ПРОЙТИ ОБУЧЕНИЕ
-    </button>
-    
-    <button class="skip-button" onclick="playSound('soundButton', 'button'); openSkipModal()">
-      ⚡ Пропустить обучение
-      <span class="skip-note">для опытных пользователей</span>
-    </button>
+  <!-- Инфо панель -->
+  <div class="info-panel">
+    <div class="year-info">
+      <div class="meeting" id="meetingDisplay">1/16</div>
+      <div class="year" id="yearDisplay">2000</div>
+      <div class="quarter" id="quarterDisplay">I квартал</div>
+      <div class="trust">
+        <span>⭐ Доверие:</span>
+        <div class="trust-bar">
+          <div class="trust-fill" id="trustFill" style="width: 65%"></div>
+        </div>
+        <span id="trustValue">65%</span>
+      </div>
+    </div>
+    <div class="wiki-link" id="wikiLink">
+      <a href="#" target="_blank" id="wikiLinkA">📖 События периода</a>
+    </div>
   </div>
-  
-  <div class="start-note">
-    Интерактивный симулятор • 7 сценариев • 15–20 минут
+
+  <!-- Цель сценария -->
+  <div class="scenario-goal" id="scenarioGoal"></div>
+
+  <!-- Карточки показателей -->
+  <div class="metrics-grid" id="metricsGrid"></div>
+
+  <!-- Панель управления -->
+  <div class="control-panel">
+    <div class="slider-container">
+      <div class="slider-label">
+        <span>🔑 Ключевая ставка на следующее заседание</span>
+        <div>
+          <span class="rate-big" id="rateDisplay">4.0%</span>
+          <button class="what-if-btn" onclick="showWhatIf()">🔮 Что будет, если...</button>
+        </div>
+      </div>
+      <input type="range" id="keyRateSlider" min="0" max="200" value="4" step="0.5">
+      <div style="display: flex; justify-content: space-between; margin-top: 8px;">
+        <span>🟢 0%</span>
+        <span>🔴 200%</span>
+      </div>
+    </div>
+
+    <!-- Прогноз -->
+    <div class="forecast" id="forecastBlock">
+      <strong>🔮 Прогноз к следующему заседанию:</strong> <span id="forecastText">...</span>
+    </div>
+
+    <!-- Кнопки -->
+    <div class="action-buttons">
+      <button class="primary-btn" id="applyBtn">✅ Утвердить ставку</button>
+      <button class="secondary-btn" onclick="restartScenario()">🔄 Заново</button>
+    </div>
+  </div>
+
+  <!-- График -->
+  <div class="chart-container">
+    <div class="chart-header">
+      <div class="chart-title">📊 Динамика показателей</div>
+      <div class="chart-legend">
+        <div class="legend-item"><span class="legend-color" style="background: #ff6384;"></span> Инфляция</div>
+        <div class="legend-item"><span class="legend-color" style="background: #36a2eb;"></span> Ключевая ставка</div>
+        <div class="legend-item"><span class="legend-color" style="background: #4caf50;"></span> ВВП</div>
+        <div class="legend-item"><span class="legend-color" style="background: #ffcd56;"></span> Доступность жилья</div>
+      </div>
+    </div>
+    <div class="chart-wrapper">
+      <canvas id="economyChart"></canvas>
+    </div>
   </div>
 </div>
 
-  <div class="resources">
-    <a href="https://cbr.ru/dkp/" target="_blank" class="resource-link" onclick="playSound('soundButton', 'button')">
-      📘 ДКП Банка России
-    </a>
-    <a href="https://fincult.info" target="_blank" class="resource-link" onclick="playSound('soundButton', 'button')">
-      🎓 fincult.info
-    </a>
+<!-- Модальное окно выбора сценария -->
+<div id="scenarioModal" class="modal" style="display: none;">
+  <div class="modal-content">
+    <h3>📜 ВЫБЕРИТЕ СЦЕНАРИЙ</h3>
+    <div class="scenario-grid" id="scenarioGrid"></div>
+    <button class="close-modal" onclick="closeScenarioMenu()">Закрыть</button>
   </div>
 </div>
-  </section>
 
-  <!-- Футер -->
-  <footer class="footer">
-    Региональный этап кейс-чемпионата по ДКП • Сибирский федеральный округ • 2026
-  </footer>
-</main>
+<!-- Модальное окно справки -->
+<div id="helpModal" class="modal" style="display: none;">
+  <div class="modal-content">
+    <h3>❓ Как играть</h3>
+    <p><strong>Цель:</strong> проверить миф о том, что снижение ставки всегда помогает жилью.</p>
+    <p><strong>16 заседаний ЦБ (2 года):</strong> каждое заседание вы выбираете ключевую ставку.</p>
+    <p><strong>Реальная ставка</strong> = ключевая ставка − инфляция. Стремитесь к положительной реальной ставке.</p>
+    <p><strong>🚨 Экстренные заседания:</strong> при негативных событиях можно изменить ставку, не тратя ход.</p>
+    <p><strong>💡 Главный урок:</strong> снижение ставки без контроля инфляции делает жильё менее доступным!</p>
+    <button class="close-modal" onclick="closeHelp()">Понятно</button>
+  </div>
+</div>
+
+<!-- Модальное окно объяснения термина -->
+<div id="termModal" class="modal" style="display: none;">
+  <div class="modal-content">
+    <h3 id="termTitle"></h3>
+    <p id="termText"></p>
+    <button class="close-modal" onclick="closeTermModal()">Закрыть</button>
+  </div>
+</div>
+
+<!-- Модальное окно финала -->
+<div id="resultModal" class="modal" style="display: none;">
+  <div class="modal-content result-screen" id="resultContent"></div>
+</div>
+
+<!-- Модальное окно "Что если" -->
+<div id="whatIfModal" class="modal" style="display: none;">
+  <div class="modal-content" style="max-width: 700px;" id="whatIfContent"></div>
+</div>
+
+<!-- Уведомление о событии -->
+<div id="eventModal" class="modal" style="display: none;">
+  <div class="modal-content" style="text-align: center;" id="eventContent"></div>
+</div>
+
+<!-- Модальное окно пояснения термина события -->
+<div id="termDefinitionModal" class="modal" style="display: none;">
+  <div class="modal-content term-definition">
+    <span class="close-term-modal" onclick="closeTermDefinitionModal()">&times;</span>
+    <h3 id="termDefinitionTitle"></h3>
+    <p id="termDefinitionText"></p>
+  </div>
+</div>
 
 <!-- Ассистент -->
 <div class="assistant">
@@ -155,53 +240,11 @@
   <div class="assistant-bubble" id="assistantBubble">
     <span class="close-bubble" onclick="closeAssistantBubble(event)">✕</span>
     <div id="assistantMessage">
-      🎯 Привет! Я твой личный помощник на всём пути. Буду объяснять термины, подсказывать стратегии и голосом, и текстом. Нажимай на «!» рядом с показателями — сразу всё станет ясно!
+      Выберите сценарий. Я буду давать подсказки!
     </div>
   </div>
 </div>
 
-<!-- Модальное окно пропуска обучения -->
-<div id="skipModal" class="modal">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h3>ПРОВЕРКА ЗНАНИЙ</h3>
-      <span class="close-modal" onclick="closeSkipModal()">✕</span>
-    </div>
-    <div class="modal-body">
-      <p>Ответьте на вопросы, чтобы пропустить обучение:</p>
-      
-      <div class="question">
-        <p>1. Что произойдёт с инфляцией при снижении ключевой ставки?</p>
-        <label><input type="radio" name="q1" value="up"> Вырастет</label>
-        <label><input type="radio" name="q1" value="down"> Снизится</label>
-        <label><input type="radio" name="q1" value="same"> Не изменится</label>
-      </div>
-      
-      <div class="question">
-        <p>2. Что такое реальная ставка?</p>
-        <label><input type="radio" name="q2" value="rate"> Ключевая ставка</label>
-        <label><input type="radio" name="q2" value="minus"> Ключевая ставка − инфляция</label>
-        <label><input type="radio" name="q2" value="plus"> Ключевая ставка + инфляция</label>
-      </div>
-      
-      <div class="question">
-        <p>3. Что влияет на доступность жилья?</p>
-        <label><input type="radio" name="q3" value="only"> Только ключевая ставка</label>
-        <label><input type="radio" name="q3" value="all"> Ставка, инфляция и доходы</label>
-        <label><input type="radio" name="q3" value="price"> Только цены на квартиры</label>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button class="modal-btn" onclick="checkSkipAnswers()">Проверить</button>
-      <div id="skipResult" class="result-message"></div>
-    </div>
-    
-    <div style="text-align: center; margin-top: 10px;">
-      <button class="skip-anyway-btn" onclick="forceSkip()">все равно пропустить</button>
-    </div>
-  </div>
-</div>
-
-<script src="js/index.js"></script>
+<script src="js/scenario.js"></script>
 </body>
 </html>
