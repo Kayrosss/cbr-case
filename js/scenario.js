@@ -314,7 +314,7 @@ const events = [
 const scenarios = {
   'russia90': {
     name: 'Россия 1992',
-    wiki: 'https://ru.wikipedia.org/wiki/Экономические_реформы_в_России_(1990-е_годы)',
+    wiki: 'https://ru.wikipedia.org/w/index.php?title=Экономические_реформы_в_России_(1990-е_годы)&stable=1',
     startYear: 1992,
     initial: { inflation: 2508, keyRate: 100, gdp: -14.5, housing: 8 },
     goal: 'Цель: инфляция < 300%, жильё > 12',
@@ -322,7 +322,23 @@ const scenarios = {
     targetHousing: 12,
     description: 'Гиперинфляция',
     historicalFact: 'В 1992 году цены выросли в 26 раз (инфляция 2508%)! Квартиры подорожали так, что стали недоступны.',
-    icon: '🔥'
+    icon: '🔥',
+    historicalInfo: {
+      title: '🇷🇺 Россия 1992: Шоковая терапия',
+      description: '2 января 1992 года правительство Егора Гайдара отпустило цены. Это привело к гиперинфляции: за год цены выросли в 26 раз. Вклады граждан обесценились, предприятия остались без оборотных средств. Квартиры формально можно было купить, но они стали недоступны из-за бешеного роста цен.',
+      keyEvents: [
+        '2 января 1992 - Либерализация цен',
+        'Август 1992 - Начало ваучерной приватизации',
+        'Декабрь 1992 - Отставка Е. Гайдара, премьер-министром стал В. Черномырдин',
+        'Инфляция за год - 2508%',
+        'Падение ВВП - 14.5%'
+      ],
+      sources: [
+        { name: 'Wikipedia: Экономические реформы в России (1990-е)', url: 'https://ru.wikipedia.org/w/index.php?title=Экономические_реформы_в_России_(1990-е_годы)&stable=1' },
+        { name: 'Годовой отчет ЦБ РФ 1992 года', url: 'https://cbr.ru/collection/collection/file/7821/ar_1992.pdf' },
+        { name: 'Росстат: Индексы потребительских цен', url: 'https://rosstat.gov.ru/statistics/price' },
+      ]
+    }
   },
   'russia98': {
     name: 'Россия 1998',
@@ -334,7 +350,23 @@ const scenarios = {
     targetHousing: 15,
     description: 'Дефолт',
     historicalFact: 'После дефолта 1998 года инфляция подскочила до 84%, но затем снижалась.',
-    icon: '📉'
+    icon: '📉',
+    historicalInfo: {
+      title: '🇷🇺 Россия 1998: Дефолт и кризис',
+      description: '17 августа 1998 года правительство объявило дефолт по внутренним обязательствам и девальвацию рубля. Курс рубля упал с 6 до 21 рубля за доллар (в 3.5 раза). Банковская система рухнула, но импортозамещение дало толчок промышленности. Кризис показал опасность пирамиды ГКО и зависимости от краткосрочных заимствований.',
+      keyEvents: [
+        '17 августа 1998 - Технический дефолт и девальвация рубля',
+        '23 августа 1998 - Отставка правительства С. Кириенко',
+        'Сентябрь 1998 - Назначение Е. Примакова премьер-министром',
+        'Курс доллара вырос с 6 до 21 рубля',
+        'Инфляция за год - 84%'
+      ],
+      sources: [
+        { name: 'Wikipedia: Экономический кризис 1998', url: 'https://ru.wikipedia.org/wiki/Экономический_кризис_в_России_(1998)' },
+        { name: 'История Банка России', url: 'https://cbr.ru/about_br/history/' },
+        { name: 'РАНХиГС: Уроки кризиса 1998 года', url: 'https://www.ranepa.ru/upload/iblock/14d/u7s0q2odfjnz8jjpz71mkhmazbiny0pj.pdf' }
+      ]
+    }
   },
   'russia00': {
     name: 'Россия 2000',
@@ -346,11 +378,26 @@ const scenarios = {
     targetHousing: 35,
     description: 'Нефтяной бум',
     historicalFact: '2000-е: нефть росла, доходы увеличивались, жильё становилось доступнее.',
-    icon: '📈'
+    icon: '📈',
+    historicalInfo: {
+      title: '🇷🇺 Россия 2000: Начало нефтяного бума',
+      description: 'С 2000 по 2008 год цена нефти выросла с 25 до 140 долларов за баррель. Экономика росла в среднем на 7% в год, реальные доходы населения увеличились в 2.5 раза. Ипотека стала доступной, начался строительный бум. Были созданы Стабилизационный фонд и Фонд национального благосостояния.',
+      keyEvents: [
+        '2000-2008 - Среднегодовой рост ВВП 7%',
+        '2004 - Создание Стабилизационного фонда',
+        '2005 - Запуск национальных проектов',
+        '2006 - Запуск программы "Доступное жилье"',
+        '2007 - Создание Агентства по ипотечному жилищному кредитованию'
+      ],
+      sources: [
+        { name: 'Wikipedia: Экономика России в 2000-х', url: 'https://ru.wikipedia.org/wiki/2000-е_годы_в_экономике_России' },
+        { name: 'Минфин: Оценка федерального бюджета 2000 года', url: 'https://minfin.gov.ru/ru/document/?id_4=5001-predvaritelnaya_otsenka_ispolneniya_obemov_finansirovaniya_raskhodov_defitsita_i_postupleniya_dokhodov_federalnogo_byudzheta_v_oktyabre_i_s_nachala_2000_goda' }
+      ]
+    }
   },
   'russia08': {
     name: 'Россия 2008',
-    wiki: 'https://ru.wikipedia.org/wiki/Мировой_экономический_кризис_(2008)',
+    wiki: 'https://ru.wikipedia.org/wiki/Мировой_экономический_кризис_(с_2008)#Россия',
     startYear: 2008,
     initial: { inflation: 14.1, keyRate: 13, gdp: 5.2, housing: 35 },
     goal: 'Цель: инфляция < 8%, жильё > 45',
@@ -358,11 +405,27 @@ const scenarios = {
     targetHousing: 45,
     description: 'Мировой финансовый кризис.',
     historicalFact: 'В 2008 году инфляция достигла 14,1%, ЦБ повышал ставку.',
-    icon: '🌍'
+    icon: '🌍',
+    historicalInfo: {
+      title: '🇷🇺 Россия 2008: Мировой финансовый кризис',
+      description: 'Мировой финансовый кризис, начавшийся с ипотечного кризиса в США, сильно ударил по России. Цены на нефть упали со 140 до 40 долларов. Произошла девальвация рубля, отток капитала, падение промышленного производства. Государство потратило резервы на поддержку банков и реального сектора.',
+      keyEvents: [
+        'Сентябрь 2008 - Банкротство Lehman Brothers',
+        'Октябрь 2008 - Начало антикризисных мер в России',
+        'Ноябрь 2008 - Повышение ключевой ставки до 13%',
+        'Январь 2009 - Пик безработицы (9.4%)',
+        'Падение ВВП в 2009 году - 7.8%'
+      ],
+      sources: [
+        { name: 'Wikipedia: Мировой экономический кризис (2008)', url: 'https://ru.wikipedia.org/wiki/Мировой_экономический_кризис_(с_2008)#Россия' },
+        { name: 'ЦБ РФ: Антикризисные меры', url: 'https://cbr.ru/content/document/file/161810/report_on_anti-crisis_measures.pdf' },
+        { name: 'Уроки кризиса 2008', url: 'https://www.rbc.ru/newspaper/2018/09/14/5b9a18c49a79476b25b9e37d' }
+      ]
+    }
   },
   'russia14': {
     name: 'Россия 2014',
-    wiki: 'https://ru.wikipedia.org/wiki/Экономический_кризис_в_России_(2014—2015)',
+    wiki: 'https://ru.wikipedia.org/w/index.php?title=Валютный_кризис_в_России_(2014—2015)&stable=1',
     startYear: 2014,
     initial: { inflation: 11.4, keyRate: 17, gdp: 0.7, housing: 45 },
     goal: 'Цель: инфляция < 7%, жильё > 50',
@@ -370,11 +433,27 @@ const scenarios = {
     targetHousing: 50,
     description: 'Санкции и адаптация.',
     historicalFact: '2014: санкции, обвал рубля. ЦБ поднял ставку до 17%, чтобы спасти рубль.',
-    icon: '🔒'
+    icon: '🔒',
+    historicalInfo: {
+      title: '🇷🇺 Россия 2014: Санкции и адаптация',
+      description: 'После событий 2014 года (присоединение Крыма) против России были введены секторальные санкции. В ответ - продовольственное эмбарго. Цены на нефть упали, рубль обвалился вдвое. Центробанк резко поднял ставку до 17% для защиты рубля и борьбы с инфляцией. Начался период импортозамещения.',
+      keyEvents: [
+        'Март 2014 - Присоединение Крыма, первые санкции',
+        'Ноябрь 2014 - "Черный вторник", обвал рубля',
+        '16 декабря 2014 - Повышение ставки до 17%',
+        '2015 - Начало политики импортозамещения',
+        'Инфляция в 2015 году - 12.9%'
+      ],
+      sources: [
+        { name: 'Wikipedia: Экономический кризис 2014-2015', url: 'https://ru.wikipedia.org/w/index.php?title=Валютный_кризис_в_России_(2014—2015)&stable=1' },
+        { name: 'ЦБ РФ: Денежно-кредитная политика', url: 'https://cbr.ru/content/document/file/87373/on_2014(2015-2016).pdf' },
+        { name: 'Минэкономразвития: Итоги 2014', url: 'https://www.garant.ru/news/606297/' }
+      ]
+    }
   },
   'russia22': {
     name: 'Россия 2022',
-    wiki: 'https://ru.wikipedia.org/wiki/Санкции_против_России_(2022)',
+    wiki: 'https://ru.wikipedia.org/w/index.php?title=Санкции_в_связи_со_вторжением_России_на_Украину&stable=1',
     startYear: 2022,
     initial: { inflation: 11.9, keyRate: 20, gdp: -1.2, housing: 48 },
     goal: 'Цель: инфляция < 8%, жильё > 50',
@@ -382,26 +461,58 @@ const scenarios = {
     targetHousing: 50,
     description: 'Санкционный удар',
     historicalFact: '2022: новые санкции, ставка 20%, но экономика выстояла.',
-    icon: '⚡'
+    icon: '⚡',
+    historicalInfo: {
+      title: '🇷🇺 Россия 2022: Санкционный шок',
+      description: 'В 2022 году против России ввели беспрецедентные санкции: заморозка резервов, отключение от SWIFT, запрет на импорт технологий. Центробанк экстренно поднял ставку до 20% для борьбы с паникой и инфляцией. Несмотря на прогнозы, экономика адаптировалась благодаря повороту на Восток, импортозамещению и бюджетным стимулам.',
+      keyEvents: [
+        'Февраль 2022 - Начало новых санкций',
+        '28 февраля 2022 - Повышение ставки до 20%',
+        'Март 2022 - Обвал рубля, затем укрепление',
+        'Апрель 2022 - Пик инфляции (17.8%)',
+        '2023 - Постепенное снижение ставки'
+      ],
+      sources: [
+        { name: 'Wikipedia: Санкции против России (2022)', url: 'https://ru.wikipedia.org/w/index.php?title=Санкции_в_связи_со_вторжением_России_на_Украину&stable=1' },
+        { name: 'ЦБ РФ: Ключевая ставка', url: 'https://cbr.ru/hd_base/keyrate/' },
+        { name: '"Санкционный шторм" и его последствия для Российской экономики', url: 'https://russiancouncil.ru/analytics-and-comments/columns/sanctions/sanktsionnyy-shtorm-2022-g-i-ego-posledstviya-dlya-rossiyskoy-ekonomiki/' }
+      ]
+    }
   },
- 'russia26': {
-  name: 'Россия 2026',
-  wiki: 'https://cbr.ru',
-  startYear: 2026,
-  initial: { 
-    inflation: 6.0,
-    keyRate: 15.5,
-    gdp: 1.0,
-    housing: 52,
-    trust: 68
+  'russia26': {
+    name: 'Россия 2026',
+    wiki: 'https://cbr.ru',
+    startYear: 2026,
+    initial: { 
+      inflation: 6.0,
+      keyRate: 15.5,
+      gdp: 1.0,
+      housing: 52,
+      trust: 68
+    },
+    goal: 'Цель: инфляция 4%, жильё > 55',
+    targetInflation: 4,
+    targetHousing: 55,
+    description: 'Текущая экономическая ситуация',
+    historicalFact: '2026: возвращение к таргету 4%',
+    icon: '🇷🇺',
+    historicalInfo: {
+      title: '🇷🇺 Россия 2026: Возвращение к таргету',
+      description: 'К 2026 году российская экономика адаптировалась к новым условиям. Инфляция постепенно снижается к цели 4%, ключевая ставка остается высокой для борьбы с инфляционными ожиданиями. Доступность жилья - один из главных вызовов: цены на квартиры выросли из-за льготной ипотеки и роста себестоимости строительства.',
+      keyEvents: [
+        '2024 - Завершение программы льготной ипотеки',
+        '2025 - Адаптация экономики к новым условиям',
+        '2026 - Постепенное снижение инфляции к таргету',
+        'Дискуссия о роли ключевой ставки в доступности жилья'
+      ],
+      sources: [
+        { name: 'ЦБ РФ: Доклад о ДКП', url: 'https://cbr.ru/about_br/publ/ondkp/on_2026_2028/' },
+         { name: 'ЦБ РФ: Статистика инфляции', url: 'https://cbr.ru/statistics/ddkp/macro_sub/' },
+        { name: 'Дом.РФ: Аналитика рынка жилья', url: 'https://дом.рф/analytics/' },
+        { name: 'Росстат: Инфляция', url: 'https://rosstat.gov.ru/statistics/price' }
+      ]
+    }
   },
-  goal: 'Цель: инфляция 4%, жильё > 55',
-  targetInflation: 4,
-  targetHousing: 55,
-  description: 'Текущая экономическая ситуация',
-  historicalFact: '2026: возвращение к таргету 4%',
-  icon: '🇷🇺'
-},
   'sandbox': {
     name: '🧪 Свободная игра',
     wiki: '#',
@@ -412,7 +523,20 @@ const scenarios = {
     targetHousing: 0,
     description: 'Пробуйте разные стратегии без ограничений.',
     historicalFact: 'Здесь нет истории — только экономика.',
-    icon: '🧪'
+    icon: '🧪',
+    historicalInfo: {
+      title: '🧪 Свободная игра',
+      description: 'В этом режиме нет исторических ограничений. Вы можете экспериментировать с ключевой ставкой и наблюдать за последствиями. Проверяйте гипотезы, изучайте взаимосвязи - это ваша личная экономическая лаборатория.',
+      keyEvents: [
+        'Нет исторических событий',
+        'Только ваши решения',
+        'Чистый эксперимент'
+      ],
+      sources: [
+        { name: 'ЦБ РФ: Учебные материалы', url: 'https://cbr.ru/' },
+        { name: 'Финам: Экономический словарь', url: 'https://www.finam.ru/publications/section/dictionary/' }
+      ]
+    }
   }
 };
 
@@ -452,21 +576,21 @@ function loadScenario(scenarioId) {
   const s = scenarios[scenarioId];
   currentMeeting = 0;
   
-  const baseApartmentPrice = scenarioId === 'russia90' ? 0.5 :
-                             scenarioId === 'russia98' ? 0.6 :
-                             scenarioId === 'russia00' ? 1.5 :
-                             scenarioId === 'russia08' ? 3.5 :
-                             scenarioId === 'russia14' ? 4.5 :
-                             scenarioId === 'russia22' ? 7.2 : 10;
-                             scenarioId === 'russia26' ? 12.5 : 10;
+const baseApartmentPrice = scenarioId === 'russia90' ? 0.5 :
+                           scenarioId === 'russia98' ? 0.6 :
+                           scenarioId === 'russia00' ? 1.5 :
+                           scenarioId === 'russia08' ? 3.5 :
+                           scenarioId === 'russia14' ? 4.5 :
+                           scenarioId === 'russia22' ? 7.2 :
+                           scenarioId === 'russia26' ? 12.5 : 10;
 
-  const baseIncome = scenarioId === 'russia90' ? 20 :
-                     scenarioId === 'russia98' ? 25 :
-                     scenarioId === 'russia00' ? 8 :
-                     scenarioId === 'russia08' ? 30 :
-                     scenarioId === 'russia14' ? 45 :
-                     scenarioId === 'russia22' ? 70 : 80;
-                     scenarioId === 'russia26' ? 95 : 80;
+const baseIncome = scenarioId === 'russia90' ? 20 :
+                   scenarioId === 'russia98' ? 25 :
+                   scenarioId === 'russia00' ? 8 :
+                   scenarioId === 'russia08' ? 30 :
+                   scenarioId === 'russia14' ? 45 :
+                   scenarioId === 'russia22' ? 70 :
+                   scenarioId === 'russia26' ? 95 : 80;
 
   gameState = {
     inflation: [s.initial.inflation],
@@ -480,8 +604,8 @@ function loadScenario(scenarioId) {
   
   gameFinished = false;
 
-  document.getElementById('wikiLinkA').href = s.wiki;
-  document.getElementById('wikiLinkA').textContent = `📖 ${s.name}`;
+  /// document.getElementById('wikiLinkA').href = s.wiki;
+  /// document.getElementById('wikiLinkA').textContent = `📖 ${s.name}`;
   
   if (scenarioId === 'sandbox') {
     document.getElementById('scenarioGoal').innerHTML = `<span class="goal-text">🧪 Свободный режим. Нет целей, только эксперименты.</span>`;
@@ -525,7 +649,7 @@ function updateUI() {
  const meetingInQuarter = (currentMeeting % 2) + 1;
  const currentRealYear = s.startYear + yearOffset;
   
-  document.getElementById('meetingDisplay').textContent = `${currentMeeting+1}/16`;
+  document.getElementById('meetingDisplay').textContent = `${Math.min(currentMeeting, 16)}/16`;
   document.getElementById('yearDisplay').textContent = currentRealYear;
   
   const quarters = ['I', 'II', 'III', 'IV'];
@@ -607,7 +731,12 @@ function updateForecast() {
   const slider = document.getElementById('keyRateSlider');
   const newRate = parseFloat(slider.value);
   const currentInfl = gameState.inflation[currentMeeting];
-  const forecastInfl = Math.max(3, currentInfl - (newRate - 10) * 1.2);
+  
+  // Используем ту же формулу, что и в applyDecision, но без случайности
+  // Для прогноза берем среднее значение
+  let forecastInfl = currentInfl - (newRate - 10) * 1.2;
+  forecastInfl = Math.max(3, Math.min(300, forecastInfl));
+  
   document.getElementById('forecastText').innerHTML = `инфляция ≈ ${forecastInfl.toFixed(1)}%`;
 }
 
@@ -850,7 +979,6 @@ function updateAssistantBasedOnSituation() {
   } else if (currentScenario !== 'sandbox') {
       if (house < s.targetHousing) {
           advice = `🏚️ Жильё всё ещё недоступно. Чтобы его повысить, нужна стабильная экономика. Сейчас цена квартиры ${price.toFixed(1)} млн, доход ${income.toFixed(0)} тыс.`;
-          voicePhrase = 10;
       } else if (infl > s.targetInflation) {
           advice = `⚠️ Инфляция выше цели. Держите ставку на уровне ${Math.ceil(infl + 2)}% или выше.`;
           voicePhrase = 7;
@@ -901,11 +1029,72 @@ function closeScenarioMenu() {
   document.getElementById('scenarioModal').style.display = 'none';
 }
 
+function showHistoricalInfo(scenarioId) {
+  const s = scenarios[scenarioId];
+  if (!s.historicalInfo) {
+    if (s.wiki && s.wiki !== '#') {
+      window.open(s.wiki, '_blank');
+    }
+    return;
+  }
+  
+  const info = s.historicalInfo;
+  
+  const eventsList = info.keyEvents.map(event => 
+    `<li style="margin-bottom:8px; color:white;">🔹 ${event}</li>`
+  ).join('');
+  
+  const sourcesList = info.sources.map(source => 
+    `<li style="margin-bottom:8px;"><a href="${source.url}" target="_blank" style="color:#ffd966; text-decoration:none; border-bottom:1px dashed #ffd966;">📄 ${source.name}</a></li>`
+  ).join('');
+  
+const html = `
+  <div style="text-align: left; max-height: calc(90vh - 120px); overflow-y: auto; padding-right: 10px;">
+      <h2 style="color:#ffd966; margin-bottom:15px; text-align:center; font-size:24px;">${info.title}</h2>
+      
+      <div style="background:rgba(255,215,0,0.1); padding:20px; border-radius:20px; margin-bottom:20px; border-left:4px solid #ffd966;">
+        <p style="font-size:16px; line-height:1.6; color:white;">${info.description}</p>
+      </div>
+      
+      <h3 style="color:#ffd966; margin:20px 0 10px 0; font-size:20px;">📅 Ключевые события:</h3>
+      <ul style="margin-bottom:25px; padding-left:20px; list-style-type:none;">
+        ${eventsList}
+      </ul>
+      
+      <h3 style="color:#ffd966; margin:20px 0 10px 0; font-size:20px;">🔗 Достоверные источники:</h3>
+      <ul style="margin-bottom:25px; padding-left:20px; list-style-type:none;">
+        ${sourcesList}
+      </ul>
+      
+      <div style="background:rgba(0,0,0,0.3); padding:15px; border-radius:15px; margin-bottom:15px; border-left:4px solid #ffd966;">
+        <p style="font-style:italic; font-size:15px; color:#ffd966;">
+          <strong>🧠 Исторический факт:</strong> ${s.historicalFact}
+        </p>
+      </div>
+    </div>
+    
+    <div style="display: flex; gap: 15px; justify-content: center; margin-top: 25px;">
+      <button class="modal-btn" onclick="window.open('${s.wiki}', '_blank')" style="background:#1e4a6a; padding:12px 25px;">📖 Wikipedia</button>
+      <button class="modal-btn" onclick="closeHistoricalModal()" style="background:#ff6b4a; padding:12px 25px;">Закрыть</button>
+    </div>
+  `;
+  
+  document.getElementById('historicalContent').innerHTML = html;
+  document.getElementById('historicalModal').style.display = 'flex';
+  playSound('soundButton', 'button');
+}
+
+function closeHistoricalModal() {
+  document.getElementById('historicalModal').style.display = 'none';
+}
+
 function applyDecision() {
+  // Если игра закончена - ничего не делаем
   if (gameFinished) return;
-  if (currentMeeting >= 15) {
-    gameFinished = true;
-    showResult();
+
+  // Если уже сделано 16 ходов - не даем сделать 17-й
+  if (currentMeeting >= 16) {
+    console.log('Игра уже завершена, нельзя сделать больше ходов');
     return;
   }
 
@@ -917,8 +1106,11 @@ function applyDecision() {
   const currentPrice = gameState.apartmentPrice[currentMeeting];
   const currentIncome = gameState.income[currentMeeting];
 
+  // Рассчитываем следующие показатели
   let nextInfl = currentInfl - (newRate - 10) * 1.2 + (Math.random() * 4 - 2);
-  nextInfl = Math.max(3, Math.min(300, nextInfl));
+  // Для 1992 года разрешаем инфляцию до 3000%, для остальных - 300%
+  const maxInflation = currentScenario === 'russia90' ? 3000 : 300;
+  nextInfl = Math.max(3, Math.min(maxInflation, nextInfl));
 
   let nextGdp = currentGdp + (10 - newRate) * 0.2 - (currentInfl > 50 ? 2 : 0);
   nextGdp = Math.max(-20, Math.min(15, nextGdp));
@@ -942,6 +1134,7 @@ function applyDecision() {
 
   const priceData = calculateApartmentPrice(nextInfl, currentPrice, currentIncome, nextGdp);
 
+  // Добавляем новые данные в историю
   gameState.keyRate.push(newRate);
   gameState.inflation.push(nextInfl);
   gameState.gdp.push(nextGdp);
@@ -950,14 +1143,17 @@ function applyDecision() {
   gameState.apartmentPrice.push(priceData.price);
   gameState.income.push(priceData.income);
 
+  // Увеличиваем счетчик ходов
   currentMeeting++;
 
- if (nextTrust < 15) {
+  // Проверка на проигрыш из-за доверия
+  if (nextTrust < 15) {
     gameFinished = true;
-    showTrustLossModal(); // показываем модалку проигрыша из-за доверия
-    return; // прекращаем выполнение функции
- }
+    showTrustLossModal();
+    return;
+  }
 
+  // Звуки и обновление интерфейса
   playSound('soundCash', 'cash');
   updateUI();
   updateForecast();
@@ -965,6 +1161,15 @@ function applyDecision() {
   triggerRandomEvent();
   
   if (nextHouse > currentHouse && nextInfl < currentInfl) playVoice(18);
+
+  // ===== ПРОВЕРКА НА ЗАВЕРШЕНИЕ ИГРЫ =====
+  // Если сделали 16 ходов - показываем результат
+  if (currentMeeting === 16) {
+    console.log('16 ходов сделано, показываем результат');
+    gameFinished = true;
+    showResult();
+    return;
+  }
 }
 
 function showWhatIf() {
@@ -972,28 +1177,60 @@ function showWhatIf() {
   const currentInfl = gameState.inflation[currentMeeting];
   const currentGdp = gameState.gdp[currentMeeting];
   const currentHouse = gameState.housing[currentMeeting];
+  const currentTrust = gameState.trust[currentMeeting];
   const currentPrice = gameState.apartmentPrice[currentMeeting];
   const currentIncome = gameState.income[currentMeeting];
   
+  // Максимальная инфляция для сценария
+  const maxInflation = currentScenario === 'russia90' ? 3000 : 300;
+  
   // Сценарий 1: снижение ставки
   const lowerRate = Math.max(0, currentRate - 5);
-  const lowerInfl = Math.max(3, currentInfl - (lowerRate - 10) * 1.2);
-  const lowerGdp = currentGdp + (10 - lowerRate) * 0.2 - (currentInfl > 50 ? 2 : 0);
-  const lowerHouse = currentHouse + (10 - lowerRate) * 0.3 - (lowerInfl / 30) + (lowerGdp * 0.2);
-  const lowerPrice = currentPrice * (1 + lowerInfl * 0.5 / 100);
+  let lowerInfl = currentInfl - (lowerRate - 10) * 1.2;
+  lowerInfl = Math.max(3, Math.min(maxInflation, lowerInfl));
+  let lowerGdp = currentGdp + (10 - lowerRate) * 0.2 - (currentInfl > 50 ? 2 : 0);
+  lowerGdp = Math.max(-20, Math.min(15, lowerGdp));
+  lowerGdp *= (currentStyle?.businessModifier || 1.0);
+  
+  let lowerReal = lowerRate - lowerInfl;
+  let lowerHouseChange = (8 - lowerRate) * 0.2 - (lowerInfl / 15) + (lowerGdp * 0.3);
+  if (lowerReal < -5) lowerHouseChange -= 2;
+  if (lowerReal > 5) lowerHouseChange += 1;
+  let lowerHouse = currentHouse + lowerHouseChange;
+  lowerHouse = Math.max(0, Math.min(100, lowerHouse));
   
   // Сценарий 2: повышение ставки
   const higherRate = Math.min(200, currentRate + 5);
-  const higherInfl = Math.max(3, currentInfl - (higherRate - 10) * 1.2);
-  const higherGdp = currentGdp + (10 - higherRate) * 0.2 - (currentInfl > 50 ? 2 : 0);
-  const higherHouse = currentHouse + (10 - higherRate) * 0.3 - (higherInfl / 30) + (higherGdp * 0.2);
-  const higherPrice = currentPrice * (1 + higherInfl * 0.5 / 100);
+  let higherInfl = currentInfl - (higherRate - 10) * 1.2;
+  higherInfl = Math.max(3, Math.min(maxInflation, higherInfl));
+  let higherGdp = currentGdp + (10 - higherRate) * 0.2 - (currentInfl > 50 ? 2 : 0);
+  higherGdp = Math.max(-20, Math.min(15, higherGdp));
+  higherGdp *= (currentStyle?.businessModifier || 1.0);
+  
+  let higherReal = higherRate - higherInfl;
+  let higherHouseChange = (8 - higherRate) * 0.2 - (higherInfl / 15) + (higherGdp * 0.3);
+  if (higherReal < -5) higherHouseChange -= 2;
+  if (higherReal > 5) higherHouseChange += 1;
+  let higherHouse = currentHouse + higherHouseChange;
+  higherHouse = Math.max(0, Math.min(100, higherHouse));
   
   // Сценарий 3: оставить ставку как есть
   const sameRate = currentRate;
-  const sameGdp = currentGdp + (10 - sameRate) * 0.2 - (currentInfl > 50 ? 2 : 0);
-  const sameHouse = currentHouse + (10 - sameRate) * 0.3 - (currentInfl / 30) + (sameGdp * 0.2);
-  const samePrice = currentPrice * (1 + currentInfl * 0.5 / 100);
+  let sameGdp = currentGdp + (10 - sameRate) * 0.2 - (currentInfl > 50 ? 2 : 0);
+  sameGdp = Math.max(-20, Math.min(15, sameGdp));
+  sameGdp *= (currentStyle?.businessModifier || 1.0);
+  
+  let sameReal = sameRate - currentInfl;
+  let sameHouseChange = (8 - sameRate) * 0.2 - (currentInfl / 15) + (sameGdp * 0.3);
+  if (sameReal < -5) sameHouseChange -= 2;
+  if (sameReal > 5) sameHouseChange += 1;
+  let sameHouse = currentHouse + sameHouseChange;
+  sameHouse = Math.max(0, Math.min(100, sameHouse));
+  
+  // Цены (используем ту же формулу calculateApartmentPrice)
+  const lowerPriceData = calculateApartmentPrice(lowerInfl, currentPrice, currentIncome, lowerGdp);
+  const higherPriceData = calculateApartmentPrice(higherInfl, currentPrice, currentIncome, higherGdp);
+  const samePriceData = calculateApartmentPrice(currentInfl, currentPrice, currentIncome, sameGdp);
   
 const whatIfHtml = `
   <h3 style="color:#ffd966; margin-bottom:20px; text-align:center;">🔮 Что будет, если...</h3>
@@ -1004,8 +1241,8 @@ const whatIfHtml = `
       <p>Ставка: ${lowerRate.toFixed(1)}%</p>
       <p>Инфляция: ${lowerInfl.toFixed(1)}%</p>
       <p>ВВП: ${lowerGdp > 0 ? '+' : ''}${lowerGdp.toFixed(1)}%</p>
-      <p>Жильё: ${Math.max(0, Math.min(100, lowerHouse)).toFixed(0)}/100</p>
-      <p>Цена: ${lowerPrice.toFixed(1)} млн ₽</p>
+      <p>Жильё: ${lowerHouse.toFixed(0)}/100</p>
+      <p>Цена: ${lowerPriceData.price.toFixed(1)} млн ₽</p>
       <p style="color:${lowerInfl > currentInfl ? '#ff6b4a' : '#4caf50'}">
         ${lowerInfl > currentInfl ? '⚠️ Инфляция вырастет' : '✅ Инфляция снизится'}
       </p>
@@ -1016,8 +1253,8 @@ const whatIfHtml = `
       <p>Ставка: ${sameRate.toFixed(1)}%</p>
       <p>Инфляция: ${currentInfl.toFixed(1)}%</p>
       <p>ВВП: ${sameGdp > 0 ? '+' : ''}${sameGdp.toFixed(1)}%</p>
-      <p>Жильё: ${Math.max(0, Math.min(100, sameHouse)).toFixed(0)}/100</p>
-      <p>Цена: ${samePrice.toFixed(1)} млн ₽</p>
+      <p>Жильё: ${sameHouse.toFixed(0)}/100</p>
+      <p>Цена: ${samePriceData.price.toFixed(1)} млн ₽</p>
       <p style="color:#ffd966;">🔸 Текущая политика</p>
     </div>
 
@@ -1026,8 +1263,8 @@ const whatIfHtml = `
       <p>Ставка: ${higherRate.toFixed(1)}%</p>
       <p>Инфляция: ${higherInfl.toFixed(1)}%</p>
       <p>ВВП: ${higherGdp > 0 ? '+' : ''}${higherGdp.toFixed(1)}%</p>
-      <p>Жильё: ${Math.max(0, Math.min(100, higherHouse)).toFixed(0)}/100</p>
-      <p>Цена: ${higherPrice.toFixed(1)} млн ₽</p>
+      <p>Жильё: ${higherHouse.toFixed(0)}/100</p>
+      <p>Цена: ${higherPriceData.price.toFixed(1)} млн ₽</p>
       <p style="color:${higherInfl < currentInfl ? '#4caf50' : '#ff6b4a'}">
         ${higherInfl < currentInfl ? '✅ Инфляция снизится' : '⚠️ Инфляция вырастет'}
       </p>
@@ -1054,12 +1291,19 @@ function closeWhatIf() {
 
 function showResult() {
   const s = scenarios[currentScenario];
-  const finalHouse = gameState.housing[15] || gameState.housing[gameState.history - 1];
-  const finalInfl = gameState.inflation[15] || gameState.inflation[gameState.inflation.length - 1];
-  const finalTrust = gameState.trust[15] || gameState.trust[gameState.trust.length - 1];
-  const finalPrice = gameState.apartmentPrice[15] || gameState.apartmentPrice[gameState.apartmentPrice.length - 1];
-  const finalIncome = gameState.income[15] || gameState.income[gameState.income.length - 1];
-  const years = finalPrice * 1000 / finalIncome / 12;
+  
+  // Получаем последний индекс (после 16 решений это будет индекс 16)
+  const lastIdx = gameState.housing.length - 1;
+  
+  // Берем финальные значения с последнего индекса
+  const finalHouse = gameState.housing[lastIdx] || 0;
+  const finalInfl = gameState.inflation[lastIdx] || 0;
+  const finalTrust = gameState.trust[lastIdx] || 50;
+  const finalPrice = gameState.apartmentPrice[lastIdx] || 10;
+  const finalIncome = gameState.income[lastIdx] || 80;
+
+  // Защита от деления на ноль
+  const years = (finalIncome > 0) ? finalPrice * 1000 / finalIncome / 12 : 0;
   
   // Определяем победу или поражение
   let win = false;
@@ -1068,23 +1312,20 @@ function showResult() {
   if (currentScenario !== 'sandbox') {
     win = finalInfl <= s.targetInflation && finalHouse >= s.targetHousing && finalTrust >= 30;
     
-    // Если не победили, определяем причину
     if (!win) {
       if (finalTrust < 30) lossReason = 'доверие';
       else if (finalInfl > s.targetInflation) lossReason = 'инфляция';
       else if (finalHouse < s.targetHousing) lossReason = 'жилье';
     }
   } else {
-    win = true; // в песочнице всегда победа
+    win = true;
   }
 
-  // Звук победы
   if (win && currentScenario !== 'sandbox') {
     playSound('soundVictoryFanfare', 'victory');
     playVoice(19);
   }
 
-  // Анализ мифа
   let mythAnalysis = '';
   if (currentScenario === 'sandbox') {
     mythAnalysis = '🧪 Вы завершили эксперимент. Надеемся, вы лучше поняли взаимосвязи.';
@@ -1096,14 +1337,12 @@ function showResult() {
     mythAnalysis = '📚 ГЛАВНЫЙ УРОК: ключевая ставка влияет, но не решает всё. Доступность жилья зависит от инфляции, доходов и доверия.';
   }
 
-  // Формируем результат в зависимости от победы/поражения
+  // Формируем HTML для модального окна
   let resultHtml = '';
   
   if (win) {
-    // ПОБЕДА
     resultHtml = `
       <h2 class="win" style="margin-bottom:15px;">🏆 ВЫ ДОСТИГЛИ ЦЕЛЕЙ!</h2>
-      
       <div style="background:rgba(0,0,0,0.3); padding:20px; border-radius:30px; margin:20px 0;">
         <p><strong>Инфляция:</strong> ${finalInfl.toFixed(1)}% ${currentScenario !== 'sandbox' ? `(цель ≤ ${s.targetInflation}%)` : ''}</p>
         <p><strong>Доступность жилья:</strong> ${finalHouse.toFixed(0)}/100 ${currentScenario !== 'sandbox' ? `(цель ≥ ${s.targetHousing})` : ''}</p>
@@ -1111,26 +1350,20 @@ function showResult() {
         <p><strong>Доход семьи:</strong> ${finalIncome.toFixed(0)} тыс. ₽/мес</p>
         <p><strong>Лет накоплений:</strong> ${years.toFixed(1)} ${pluralizeYears(years)}</p>
       </div>
-      
       <div style="background:rgba(255,215,0,0.1); padding:20px; border-radius:30px; margin:20px 0;">
         <p style="font-weight:bold; color:#ffd966;">🧠 РАЗБОР МИФА:</p>
         <p>${mythAnalysis}</p>
       </div>
-      
-      <p style="font-style:italic; margin:20px 0;">
-        "Ключевая ставка — не волшебная кнопка. Важна реальная ставка, инфляция и доходы."
-      </p>
-      
+      <p style="font-style:italic; margin:20px 0;">"Ключевая ставка — не волшебная кнопка. Важна реальная ставка, инфляция и доходы."</p>
       <div style="display: flex; gap: 15px; justify-content: center; margin-top: 30px;">
         <button class="modal-btn" onclick="closeResultAndOpenMenu()">📜 Другой сценарий</button>
         <button class="modal-btn" onclick="closeResultAndRestart()">🔄 Повторить</button>
       </div>
     `;
   } else {
-    // ПОРАЖЕНИЕ
     let lossMessage = '';
     if (lossReason === 'доверие') {
-      lossMessage = 'Доверие упало до критического уровня. Общество и бизнес недовольны вашей политикой. Вы нелегитимны.';
+      lossMessage = 'Доверие упало до критического уровня. Общество и бизнес недовольны вашей политикой.';
     } else if (lossReason === 'инфляция') {
       lossMessage = 'Инфляция вышла из-под контроля. Цены растут быстрее доходов, жильё становится недоступным.';
     } else if (lossReason === 'жилье') {
@@ -1141,7 +1374,6 @@ function showResult() {
     
     resultHtml = `
       <h2 class="neutral" style="margin-bottom:15px;">🎓 ЭКСПЕРИМЕНТ ЗАВЕРШЁН</h2>
-      
       <div style="background:rgba(0,0,0,0.3); padding:20px; border-radius:30px; margin:20px 0;">
         <p><strong>Инфляция:</strong> ${finalInfl.toFixed(1)}% (цель ≤ ${s.targetInflation}%)</p>
         <p><strong>Доступность жилья:</strong> ${finalHouse.toFixed(0)}/100 (цель ≥ ${s.targetHousing})</p>
@@ -1149,16 +1381,11 @@ function showResult() {
         <p><strong>Доход семьи:</strong> ${finalIncome.toFixed(0)} тыс. ₽/мес</p>
         <p><strong>Лет накоплений:</strong> ${years.toFixed(1)} ${pluralizeYears(years)}</p>
       </div>
-      
       <div style="background:rgba(255,100,100,0.2); padding:20px; border-radius:30px; margin:20px 0; border-left: 4px solid #ff6b4a;">
         <p style="font-weight:bold; color:#ff6b4a;">❌ ЦЕЛИ НЕ ДОСТИГНУТЫ</p>
         <p>${lossMessage}</p>
       </div>
-      
-      <p style="font-style:italic; margin:20px 0;">
-        "Ключевая ставка — важный, но не единственный инструмент. Нужен комплексный подход."
-      </p>
-      
+      <p style="font-style:italic; margin:20px 0;">"Ключевая ставка — важный, но не единственный инструмент. Нужен комплексный подход."</p>
       <div style="display: flex; gap: 15px; justify-content: center; margin-top: 30px;">
         <button class="modal-btn" onclick="closeResultAndOpenMenu()">📜 Другой сценарий</button>
         <button class="modal-btn" onclick="closeResultAndRestart()">🔄 Повторить попытку</button>
@@ -1168,7 +1395,7 @@ function showResult() {
   
   document.getElementById('resultContent').innerHTML = resultHtml;
   document.getElementById('resultModal').style.display = 'flex';
-  playVoice(20);
+  playVoice(19);
 }
 
 function showTrustLossModal() {
@@ -1288,7 +1515,7 @@ window.onload = function() {
 window.onclick = function(event) {
   const modals = [
     'termModal', 'eventModal', 'whatIfModal', 
-    'termDefinitionModal', 'scenarioModal', 'helpModal', 'resultModal'
+    'termDefinitionModal', 'scenarioModal', 'helpModal', 'resultModal',  'historicalModal'
   ];
   
   modals.forEach(id => {
