@@ -122,9 +122,11 @@
         <span id="trustValue">65%</span>
       </div>
     </div>
-    <div class="wiki-link" id="wikiLink">
-      <a href="#" target="_blank" id="wikiLinkA">📖 События периода</a>
-    </div>
+<div class="wiki-link">
+  <button class="wiki-btn" onclick="showHistoricalInfo(currentScenario)" style="background:none; border:2px solid #ffd966; color:#ffd966; padding:8px 20px; border-radius:40px; cursor:pointer; font-size:16px; transition:0.2s; display:flex; align-items:center; gap:8px;">
+    <span>📖</span> История периода
+  </button>
+</div>
   </div>
 
   <!-- Цель сценария -->
@@ -242,6 +244,13 @@
     <div id="assistantMessage">
       Выберите сценарий. Я буду давать подсказки!
     </div>
+  </div>
+</div>
+
+<!-- Модальное окно исторической информации -->
+<div id="historicalModal" class="modal" style="display: none;">
+  <div class="modal-content" style="max-width: 800px; max-height: 100vh; overflow-y: auto; padding: 30px;" id="historicalContent">
+    <!-- Контент будет вставлен через JavaScript -->
   </div>
 </div>
 
